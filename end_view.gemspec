@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.license      = 'MIT'
   s.files        = Dir['LICENSE.txt', 'README.md', 'lib/**/*']
   s.require_path = 'lib'
-  s.add_runtime_dependency 'tilt', '~> 2.0', '>= 2.0.1'
+  s.add_runtime_dependency 'tilt'
   s.add_development_dependency 'rspec', '~> 3.1', '>= 3.1.0'
-  s.add_development_dependency 'haml', '~> 4.0', '>= 4.0.5'
+  s.add_development_dependency 'haml'
 end
