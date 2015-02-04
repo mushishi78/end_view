@@ -1,6 +1,6 @@
 require 'end_view'
 
-Dir["#{__FILE__}/../examples/*.rb"].each { |f| require f }
+Dir[File.join(__FILE__, '..', 'examples', '*.rb')].each { |f| require f }
 
 describe EndView do
   it 'renders a simple template' do
