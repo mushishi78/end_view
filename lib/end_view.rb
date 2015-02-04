@@ -1,26 +1,28 @@
-require 'tilt'
+require 'tilt/erb'
 
-class EndView < Module
+module EndView
   class << self
     attr_writer :default_engine
 
     def default_engine
       @default_engine ||= Tilt::ERBTemplate
     end
-  end
 
-  def initialize(file, template_engine = EndView.default_engine)
-    define_singleton_method(:included) do |base|
-      base.extend ClassMethods
-      base.compile(file, template_engine)
-      base.send(:include, Methods)
-      base.send(:include, InstanceMethods)
-    end
+    def new(file, template_engine = EndView.default_engine)
+      Module.new do
+        define_singleton_method(:included) do |base|
+          base.extend ClassMethods
+          base.compile(file, template_engine)
+          base.send(:include, Methods)
+          base.send(:include, InstanceMethods)
+        end
 
-    define_singleton_method(:extended) do |base|
-      base.extend ClassMethods
-      base.compile(file, template_engine)
-      base.extend Methods
+        define_singleton_method(:extended) do |base|
+          base.extend ClassMethods
+          base.compile(file, template_engine)
+          base.extend Methods
+        end
+      end
     end
   end
 
