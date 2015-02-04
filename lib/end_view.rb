@@ -13,14 +13,14 @@ class EndView < Module
     define_singleton_method(:included) do |base|
       base.extend ClassMethods
       base.compile(file, template_engine)
-      base.send(:include, RenderMethod)
+      base.send(:include, Methods)
       base.send(:include, InstanceMethods)
     end
 
     define_singleton_method(:extended) do |base|
       base.extend ClassMethods
       base.compile(file, template_engine)
-      base.extend RenderMethod
+      base.extend Methods
     end
   end
 
@@ -43,7 +43,7 @@ class EndView < Module
     end
   end
 
-  module RenderMethod
+  module Methods
     def render(&b)
       rendered_template = template.render(self, &b)
       layout ? layout.render { rendered_template } : rendered_template
