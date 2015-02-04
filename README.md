@@ -1,5 +1,8 @@
 # EndView
 
+[![Build Status](https://travis-ci.org/mushishi78/end_view.svg?branch=master)](https://travis-ci.org/mushishi78/end_view)
+[![Gem Version](https://badge.fury.io/rb/end_view.svg)](http://badge.fury.io/rb/end_view)
+
 View model and template in same file using the [tilt gem](https://github.com/rtomayko/tilt).
 
 ## Usage
