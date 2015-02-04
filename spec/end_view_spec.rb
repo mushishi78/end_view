@@ -1,6 +1,12 @@
 require 'end_view'
 
-Dir[File.join(__FILE__, '..', 'examples', '*.rb')].each { |f| require f }
+require_relative 'examples/bar'
+require_relative 'examples/baz'
+require_relative 'examples/fizz'
+require_relative 'examples/foo'
+require_relative 'examples/ham'
+require_relative 'examples/my_layout'
+require_relative 'examples/pop'
 
 describe EndView do
   it 'renders a simple template' do
