@@ -3,8 +3,6 @@ require 'end_view'
 class Foo
   include EndView.new(__FILE__)
 
-  private
-
   def my_method
     'World'
   end

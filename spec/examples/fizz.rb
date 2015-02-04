@@ -5,8 +5,6 @@ class Fizz
   include EndView.new(__FILE__)
   self.layout = MyLayout
 
-  private
-
   def my_method
     'World'
   end

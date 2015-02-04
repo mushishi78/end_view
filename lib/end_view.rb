@@ -9,7 +9,7 @@ class EndView < Module
     end
   end
 
-  def initialize(file, template_engine = self.class.default_engine)
+  def initialize(file, template_engine = EndView.default_engine)
     define_singleton_method(:included) do |base|
       base.extend ClassMethods
       base.compile(file, template_engine)
@@ -30,7 +30,7 @@ class EndView < Module
       child.layout = layout
     end
 
-    def compile(file, template_engine)
+    def compile(file, template_engine = EndView.default_engine)
       @template = template_engine.new { data(file) }
     end
 
