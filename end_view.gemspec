@@ -2,7 +2,7 @@
 version = File.read(File.expand_path('../VERSION', __FILE__)).strip
 
 Gem::Specification.new do |s|
-  s.name         = 'endview'
+  s.name         = 'end_view'
   s.version      = version
   s.author       = 'Max White'
   s.email        = 'mushishi78@gmail.com'
