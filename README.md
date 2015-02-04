@@ -75,7 +75,7 @@ EndView.default_engine = Tilt::LiquidTemplate
 
 ### Layouts
 
-For template engines that support it, view models can passed blocks:
+For template engines that support it, view models can be passed blocks:
 
 ``` ruby
 module MyLayout
@@ -95,22 +95,47 @@ These can then be used as layouts:
 class Fizz
   include EndView.new(__FILE__)
   self.layout = MyLayout
-
-  def my_method
-    'World'
-  end
 end
 
-Fizz.new.render # <html>Goodbye World</html>
+Fizz.new.render # <html>Goodbye</html>
 
 __END__
 
-Goodbye <%= my_method %>
+Goodbye
+```
+
+For layouts that need to be dynamically initialized, `self.layout` can be passed a lambda:
+
+``` ruby
+class MyDynamicLayout
+  include EndView.new(__FILE__)
+
+  def initialize(title)
+    @title = title
+  end
+end
+
+__END__
+
+<html><%= @title %><%= yield %></html>
+```
+
+``` ruby
+class Whizz
+  include EndView.new(__FILE__)
+  self.layout = -> { MyDynamicLayout.new('Hallo') }
+end
+
+Whizz.new.render # <html>Hallo Bonjour</html>
+
+__END__
+
+Bonjour
 ```
 
 ### Inheritance
 
-Templates are inherited:
+Templates are inherited from parent view models:
 
 ``` ruby
 class Bar < Foo

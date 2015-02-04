@@ -34,7 +34,12 @@ class EndView < Module
       @template = template_engine.new { data(file) }
     end
 
-    attr_accessor :layout, :template
+    attr_accessor :template
+    attr_writer :layout
+
+    def layout
+      @layout.respond_to?(:call) ? @layout.call : @layout
+    end
 
     private
 

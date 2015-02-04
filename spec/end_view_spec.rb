@@ -5,8 +5,8 @@ require_relative 'examples/baz'
 require_relative 'examples/fizz'
 require_relative 'examples/foo'
 require_relative 'examples/ham'
-require_relative 'examples/my_layout'
 require_relative 'examples/pop'
+require_relative 'examples/whizz'
 
 describe EndView do
   it 'renders a simple template' do
@@ -22,7 +22,7 @@ describe EndView do
   end
 
   it 'can use a layout' do
-    expect(Fizz.new.render).to eq("\n\n<html>\n\nGoodbye World\n</html>\n")
+    expect(Fizz.new.render).to eq("\n\n<html>\n\nGoodbye\n</html>\n")
   end
 
   it 'uses supplied template engine' do
@@ -35,5 +35,9 @@ describe EndView do
 
   it 'accepts locals passed in that override' do
     expect(Foo.new.render(my_method: 'Stranger')).to eq("\n\nHello Stranger\n")
+  end
+
+  it 'can use a dynamic layout' do
+    expect(Whizz.new.render).to eq("\n\n<html>Hallo\n\nBonjour\n</html>\n")
   end
 end
