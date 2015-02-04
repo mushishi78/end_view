@@ -123,7 +123,7 @@ class Ham
   end
 end
 
-Ham.new.render # <h1>Heya</h1>\n
+Ham.new.render # <h1>Heya</h1>
 
 __END__
 
