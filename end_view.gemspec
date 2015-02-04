@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.version      = version
   s.author       = 'Max White'
   s.email        = 'mushishi78@gmail.com'
+  s.homepage     = 'https://github.com/mushishi78/end_view'
   s.summary      = 'View model and template in same file.'
   s.license      = 'MIT'
   s.files        = Dir['LICENSE.txt', 'README.md', 'lib/**/*']
