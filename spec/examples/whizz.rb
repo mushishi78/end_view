@@ -6,7 +6,7 @@ class Whizz
   self.layout = -> { MyDynamicLayout.new(title) }
 
   def title
-  	'Hallo'
+    'Hallo'
   end
 end
 
