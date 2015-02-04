@@ -45,6 +45,34 @@ __END__
 Howdy <%= my_method %>
 ```
 
+### Template Engine
+
+By default Tilt's ERB template engine is used, but alternative engines can be passed in:
+
+``` ruby
+require 'tilt/haml'
+
+class Ham
+  include EndView.new(__FILE__, Tilt::HamlTemplate)
+
+  def my_method
+    'Heya'
+  end
+end
+
+Ham.new.render # <h1>Heya</h1>
+
+__END__
+
+%h1= my_method
+```
+
+To change the default engine:
+
+``` ruby
+EndView.default_engine = Tilt::LiquidTemplate
+```
+
 ### Layouts
 
 For template engines that support it, view models can passed blocks:
@@ -108,32 +136,12 @@ __END__
 The <%= my_method %> is too big!
 ```
 
-### Template Engine
+### locals
 
-By default Tilt's ERB template engine is used, but alternative engines can be passed in:
-
-``` ruby
-require 'tilt/haml'
-
-class Ham
-  include EndView.new(__FILE__, Tilt::HamlTemplate)
-
-  def my_method
-    'Heya'
-  end
-end
-
-Ham.new.render # <h1>Heya</h1>
-
-__END__
-
-%h1= my_method
-```
-
-To change the default engine:
+Locals can be passed into the render method that override the view models:
 
 ``` ruby
-EndView.default_engine = Tilt::LiquidTemplate
+Foo.new.render(my_method: 'Stranger') # Hello Stranger
 ```
 
 ## Installation

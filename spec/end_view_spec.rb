@@ -32,4 +32,8 @@ describe EndView do
   it 'can override an inherited template' do
     expect(Pop.new.render).to eq("\n\nThe World is too big!\n")
   end
+
+  it 'accepts locals passed in that override' do
+    expect(Foo.new.render(my_method: 'Stranger')).to eq("\n\nHello Stranger\n")
+  end
 end

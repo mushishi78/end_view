@@ -44,8 +44,8 @@ class EndView < Module
   end
 
   module Methods
-    def render(&b)
-      rendered_template = template.render(self, &b)
+    def render(*args, &b)
+      rendered_template = template.render(self, *args, &b)
       layout ? layout.render { rendered_template } : rendered_template
     end
   end
