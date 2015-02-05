@@ -48,16 +48,15 @@ module EndView
   module Methods
     def render(*args, &b)
       rendered_template = template.render(self, *args, &b)
+      layout = self.layout
       layout ? layout.render { rendered_template } : rendered_template
     end
   end
 
   module InstanceMethods
     def layout
-      @layout ||= begin
-        layout = self.class.layout
-        layout.respond_to?(:call) ? instance_exec(&layout) : layout
-      end
+      layout = self.class.layout
+      layout.respond_to?(:call) ? instance_exec(&layout) : layout
     end
 
     def template
