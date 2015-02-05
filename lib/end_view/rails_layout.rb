@@ -14,12 +14,12 @@ module EndView
 
     private
 
-    def stylesheet_args
-      ['application', { media: 'all', 'data-turbolinks-track' => true }]
+    def stylesheet_link_tag
+      super('application', media: 'all', 'data-turbolinks-track' => true )
     end
 
-    def javascript_args
-      ['application', { 'data-turbolinks-track' => true }]
+    def javascript_include_tag
+      super('application', 'data-turbolinks-track' => true )
     end
   end
 end
@@ -30,7 +30,7 @@ __END__
 %html
   %head
     %title= @title
-    = stylesheet_link_tag(*stylesheet_args)
-    = javascript_include_tag(*javascript_args)
+    = stylesheet_link_tag
+    = javascript_include_tag
     = csrf_meta_tags
   %body= yield
