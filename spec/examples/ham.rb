@@ -1,4 +1,5 @@
 require 'end_view'
+require 'haml'
 require 'tilt/haml'
 
 class Ham
