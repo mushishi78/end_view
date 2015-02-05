@@ -30,7 +30,7 @@ __END__
 %html
   %head
     %title= @title
-    = stylesheet_link_tag{stylesheet_args}
-    = javascript_include_tag{javascript_args}
+    = stylesheet_link_tag(*stylesheet_args)
+    = javascript_include_tag(*javascript_args)
     = csrf_meta_tags
   %body= yield
