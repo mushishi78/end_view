@@ -1,35 +1,28 @@
 require 'end_view/bootstrap_modal'
+require 'rspec-html-matchers'
 
 module EndView
   describe BootstrapModal do
     subject { BootstrapModal.new('myModal', 'Modal title', opts) }
+    let(:rendered) { subject.render { 'content' } }
 
     context 'with no opts' do
       let(:opts) { {} }
-      let(:output) do
-        "<div aria-hidden aria-labelledby='myModalLabel' class='fade modal'"\
-        " id='myModal' role='dialog' tabindex='-1'>\n" \
-        "  <div class='modal-dialog'>\n" \
-        "    <div class='modal-content'>\n" \
-        "      <div class='modal-header'>\n" \
-        "        <button aria-hidden aria-label='Close' class='close'"\
-                  " data-dismiss='modal'>\n" \
-        "          <span aria-hidden='true'>&times;</span>\n" \
-        "        </button>\n" \
-        "        <h4 class='modal-title' id='myModalLabel'>Modal title</h4>\n" \
-        "      </div>\n" \
-        "      <div class='modal-body'>content</div>\n" \
-        "      <div class='modal-footer'>\n" \
-        "        <button class='btn btn-primary' data-dismiss='modal'>"\
-                 "Cancel</button>\n" \
-        "      </div>\n" \
-        "    </div>\n" \
-        "  </div>\n" \
-        "</div>\n"
-      end
+      let(:modal_opts) { { tabindex: -1, role: 'dialog', 'aria-labelledby' => 'myModalLabel' } }
+      let(:close_opts) { { 'aria-label' => 'Close', 'data-dismiss' => 'modal' } }
+      let(:cancel_opts) { { with: { 'data-dismiss' => 'modal' }, text: 'Cancel' } }
 
-      it 'renders output' do
-        expect(subject.render { 'content' }).to eq(output)
+      it 'renders' do
+        expect(rendered).to have_tag('.modal.fade#myModal', with: modal_opts) do
+          with_tag '.modal-dialog'
+          with_tag '.modal-content'
+          with_tag '.modal-header'
+          with_tag 'button.close', with: close_opts
+          with_tag 'h4.modal-title#myModalLabel', text: 'Modal title'
+          with_tag '.modal-body', text: 'content'
+          with_tag '.modal-footer'
+          with_tag 'button.btn.btn-primary', cancel_opts
+        end
       end
     end
 
@@ -40,33 +33,14 @@ module EndView
           success: 'Lets do it!',
           success_id: 'success-button' }
       end
+      let(:cancel_opts) { { with: { 'data-dismiss' => 'modal' }, text: 'No thanks.' } }
 
-      let(:output) do
-        "<div aria-hidden aria-labelledby='myModalLabel' class='fade modal'"\
-        " id='myModal' role='dialog' tabindex='-1'>\n" \
-        "  <div class='modal-dialog modal-lg'>\n" \
-        "    <div class='modal-content'>\n" \
-        "      <div class='modal-header'>\n" \
-        "        <button aria-hidden aria-label='Close' class='close'"\
-                  " data-dismiss='modal'>\n" \
-        "          <span aria-hidden='true'>&times;</span>\n" \
-        "        </button>\n" \
-        "        <h4 class='modal-title' id='myModalLabel'>Modal title</h4>\n" \
-        "      </div>\n" \
-        "      <div class='modal-body'>content</div>\n" \
-        "      <div class='modal-footer'>\n" \
-        "        <button class='btn btn-default' data-dismiss='modal'>"\
-                 "No thanks.</button>\n" \
-        "        <button class='btn btn-primary' id='success-button'>"\
-                 "Lets do it!</button>\n" \
-        "      </div>\n" \
-        "    </div>\n" \
-        "  </div>\n" \
-        "</div>\n"
-      end
-
-      it 'renders output' do
-        expect(subject.render { 'content' }).to eq(output)
+      it 'renders' do
+        expect(rendered).to have_tag('.modal') do
+          with_tag '.modal-dialog.modal-lg'
+          with_tag 'button.btn.btn-default', cancel_opts
+          with_tag 'button.btn.btn-primary#success-button', text: 'Lets do it!'
+        end
       end
     end
   end

@@ -69,7 +69,7 @@ __END__
     .modal-content
       .modal-header
         %button{close_opts}
-          %span(aria-hidden="true") &times;
+          %span(aria-hidden) &times;
         %h4{title_opts}= @title
       .modal-body= yield
       .modal-footer
