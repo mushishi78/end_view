@@ -54,8 +54,10 @@ module EndView
 
   module InstanceMethods
     def layout
-      layout = self.class.layout
-      layout.respond_to?(:call) ? instance_exec(&layout) : layout
+      @layout ||= begin
+        layout = self.class.layout
+        layout.respond_to?(:call) ? instance_exec(&layout) : layout
+      end
     end
 
     def template
