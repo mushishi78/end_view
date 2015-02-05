@@ -15,11 +15,11 @@ module EndView
     private
 
     def stylesheet_link_tag
-      super('application', media: 'all', 'data-turbolinks-track' => true )
+      super('application', media: 'all', 'data-turbolinks-track' => true)
     end
 
     def javascript_include_tag
-      super('application', 'data-turbolinks-track' => true )
+      super('application', 'data-turbolinks-track' => true)
     end
   end
 end
