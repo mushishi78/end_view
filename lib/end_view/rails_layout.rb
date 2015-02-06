@@ -1,25 +1,29 @@
-require 'delegate'
 require 'end_view'
 require 'haml'
 require 'tilt/haml'
+require 'active_support/core_ext/module/delegation'
 
 module EndView
-  class RailsLayout < SimpleDelegator
+  class RailsLayout
     include EndView.new(__FILE__, Tilt::HamlTemplate)
 
     def initialize(view_context, title)
-      super(view_context)
-      @title = title
+      @view_context, @title = view_context, title
     end
 
     private
 
-    def stylesheet_link_tag
-      super('application', media: 'all', 'data-turbolinks-track' => true)
+    attr_reader :view_context
+    delegate :stylesheet_link_tag,
+             :javascript_include_tag,
+             :csrf_meta_tags, to: :view_context
+
+    def stylesheet_args
+      ['application', { media: 'all', 'data-turbolinks-track' => true }]
     end
 
-    def javascript_include_tag
-      super('application', 'data-turbolinks-track' => true)
+    def javascript_args
+      ['application', { 'data-turbolinks-track' => true }]
     end
   end
 end
@@ -30,7 +34,7 @@ __END__
 %html
   %head
     %title= @title
-    = stylesheet_link_tag
-    = javascript_include_tag
+    = stylesheet_link_tag(*stylesheet_args)
+    = javascript_include_tag(*javascript_args)
     = csrf_meta_tags
   %body= yield
