@@ -1,4 +1,4 @@
-require 'end_view/form_for'
+require 'end_view/form'
 
 module EndView
   describe FormFor do

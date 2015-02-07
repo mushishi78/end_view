@@ -1,5 +1,5 @@
 require 'inflecto'
-require 'end_view/form_helpers'
+require 'end_view/form/form_helpers'
 
 module EndView
   class FormFor

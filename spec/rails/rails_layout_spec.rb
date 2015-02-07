@@ -1,4 +1,4 @@
-require 'end_view/rails_layout'
+require 'end_view/rails'
 require 'rspec-html-matchers'
 
 module EndView

@@ -1,4 +1,4 @@
-require 'end_view/form_helpers'
+require 'end_view/form'
 
 module EndView
   describe FormHelpers do
