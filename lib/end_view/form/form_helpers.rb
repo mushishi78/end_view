@@ -13,5 +13,9 @@ module EndView
     def form_method_opts(opts = {})
       { name: '_method', type: 'hidden', value: form_method }.merge(opts)
     end
+
+    def form_method
+      'post'
+    end
   end
 end
