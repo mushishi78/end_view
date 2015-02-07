@@ -16,8 +16,8 @@ module EndView
 
     attr_reader :view_context, :title
     def_delegators :view_context, :stylesheet_link_tag,
-                                  :javascript_include_tag,
-                                  :csrf_meta_tags
+                   :javascript_include_tag,
+                   :csrf_meta_tags
 
     def stylesheet_args
       ['application', { media: 'all', 'data-turbolinks-track' => true }]
