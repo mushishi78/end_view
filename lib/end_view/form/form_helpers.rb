@@ -1,7 +1,7 @@
 module EndView
   module FormHelpers
     def form_opts(opts = {})
-      { action: url, method: 'post' }.merge(opts)
+      { action: form_url, method: 'post' }.merge(opts)
     end
 
     def authenticity_token_opts(opts = {})
@@ -10,8 +10,8 @@ module EndView
         value: form_authenticity_token }.merge(opts)
     end
 
-    def patch_opts(opts = {})
-      { name: '_method', type: 'hidden', value: 'patch' }.merge(opts)
+    def form_method_opts(opts = {})
+      { name: '_method', type: 'hidden', value: form_method }.merge(opts)
     end
   end
 end

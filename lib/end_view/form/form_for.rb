@@ -11,8 +11,8 @@ module EndView
       @model_name = opts[:model_name]
       @model_id = opts[:model_id]
       @action = opts[:action]
-      @method = opts[:method]
-      @url = opts[:url]
+      @form_method = opts[:form_method]
+      @form_url = opts[:form_url]
     end
 
     def form_opts(opts = {})
@@ -31,7 +31,7 @@ module EndView
     end
 
     attr_accessor :record, :form_authenticity_token
-    attr_writer :model_name, :model_id, :action, :method, :url
+    attr_writer :model_name, :model_id, :action, :form_method, :form_url
 
     def model_name
       @model_name ||= Inflecto.underscore(Inflecto.demodulize(record.class.to_s))
@@ -42,11 +42,15 @@ module EndView
     end
 
     def action
-      @action ||= model_id ? :edit : :new
+      @action ||= model_id ? 'edit' : 'new'
     end
 
-    def url
-      @url ||= "/#{Inflecto.pluralize(model_name)}/#{model_id}"
+    def form_method
+      @form_method ||= model_id ? 'patch' : 'post'
+    end
+
+    def form_url
+      @form_url ||= "/#{Inflecto.pluralize(model_name)}/#{model_id}"
     end
 
     def form_class

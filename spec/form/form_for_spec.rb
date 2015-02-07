@@ -14,6 +14,10 @@ module EndView
                                         method: 'post')
       end
 
+      it 'returns form_method_opts' do
+        expect(subject.form_method_opts).to include(value: 'post')
+      end
+
       it 'returns label_opts' do
         expect(subject.label_opts(:firstname)).to eq(for: 'user_firstname')
       end
@@ -36,6 +40,10 @@ module EndView
                                         class: 'edit_user',
                                         id: 'edit_user_3',
                                         method: 'post')
+      end
+
+      it 'returns form_method_opts' do
+        expect(subject.form_method_opts).to include(value: 'patch')
       end
 
       it 'returns label_opts' do
