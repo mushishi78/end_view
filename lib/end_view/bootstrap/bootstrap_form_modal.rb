@@ -7,20 +7,21 @@ module EndView
     extend Forwardable
 
     def initialize(id, title, form_builder, opts = {})
+      opts[:dismiss_value] ||= 'Cancel'
       super(id, title, opts)
       @form_builder = form_builder
-      @success_value ||= 'Okay'
+      @submit_value = opts[:submit_value] || 'Okay'
     end
 
     private
 
-    attr_reader :form_builder
+    attr_reader :form_builder, :submit_value
     def_delegators :form_builder, :form_opts,
                    :authenticity_token_opts,
                    :form_method_opts
 
-    def success_opts
-      super.merge(type: 'submit')
+    def submit_opts
+      { class: 'btn btn-primary', type: 'submit' }
     end
   end
 end
@@ -39,5 +40,5 @@ __END__
         %input{form_method_opts}
         .modal-body= yield
         .modal-footer
-          - buttons.compact.each do |(opts, value)|
-            %button{opts}= value
+          %button{dismiss_opts}= dismiss_value
+          %button{submit_opts}= submit_value

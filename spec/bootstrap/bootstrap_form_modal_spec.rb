@@ -11,11 +11,12 @@ module EndView
     end
     let(:rendered) { subject.render { 'content' } }
 
-    it 'rennders' do
+    it 'renders' do
       expect(rendered).to have_tag('form.my_form') do
         with_tag 'input.my_token'
         with_tag 'input.my_form_method'
-        with_tag 'button', with: { type: 'submit' }
+        with_tag 'button.btn-default', text: 'Cancel'
+        with_tag 'button.btn-primary', with: { type: 'submit' }, text: 'Okay'
       end
     end
   end

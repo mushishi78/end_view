@@ -2,22 +2,19 @@ require 'end_view'
 require 'haml'
 require 'tilt/haml'
 require 'forwardable'
+require 'attire'
 
 module EndView
   class RailsLayout
     include EndView.new(__FILE__, Tilt::HamlTemplate)
     extend Forwardable
-
-    def initialize(view_context, title)
-      @view_context, @title = view_context, title
-    end
+    attr_init :view_context, :title
 
     private
 
-    attr_reader :view_context, :title
     def_delegators :view_context, :stylesheet_link_tag,
-                   :javascript_include_tag,
-                   :csrf_meta_tags
+                                  :javascript_include_tag,
+                                  :csrf_meta_tags
 
     def stylesheet_args
       ['application', { media: 'all', 'data-turbolinks-track' => true }]
