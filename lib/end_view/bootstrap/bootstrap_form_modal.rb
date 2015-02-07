@@ -16,8 +16,8 @@ module EndView
 
     attr_reader :form_builder
     def_delegators :form_builder, :form_opts,
-                                  :authenticity_token_opts,
-                                  :form_method_opts
+                   :authenticity_token_opts,
+                   :form_method_opts
 
     def success_opts
       super.merge(type: 'submit')
