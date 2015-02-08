@@ -27,7 +27,7 @@ module EndView
       { id: attribute_id(attribute),
         name: attribute_name(attribute),
         type: 'text',
-        value: record.send(attribute) }.merge(opts)
+        value: attribute_value(attribute) }.merge(opts)
     end
 
     attr_accessor :record, :form_authenticity_token
@@ -67,6 +67,10 @@ module EndView
 
     def attribute_name(attribute)
       "#{model_name}[#{attribute}]"
+    end
+
+    def attribute_value(attribute)
+      (record.respond_to?(attribute) && record.send(attribute)) || nil
     end
   end
 end
