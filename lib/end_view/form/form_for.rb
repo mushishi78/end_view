@@ -5,15 +5,11 @@ module EndView
   class FormFor
     include FormHelpers
 
-    def initialize(record, form_authenticity_token, opts = {})
-      @record = record
-      @form_authenticity_token = form_authenticity_token
-      @model_name = opts[:model_name]
-      @model_id = opts[:model_id]
-      @action = opts[:action]
-      @form_method = opts[:form_method]
-      @form_url = opts[:form_url]
-    end
+    attr_init :record, :form_authenticity_token, model_name: nil,
+                                                 model_id: nil,
+                                                 action: nil,
+                                                 form_method: nil,
+                                                 form_url: nil
 
     def form_opts(opts = {})
       super.merge(class: form_class, id: form_id).merge(opts)

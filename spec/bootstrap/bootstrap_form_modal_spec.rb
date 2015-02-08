@@ -3,7 +3,7 @@ require 'rspec-html-matchers'
 
 module EndView
   describe BootstrapFormModal do
-    subject { BootstrapFormModal.new('myModal', 'Modal title', form_builder) }
+    subject { BootstrapFormModal.new(form_builder) }
     let(:rendered) { subject.render { 'content' } }
 
     let(:form_builder) do

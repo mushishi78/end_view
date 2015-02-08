@@ -6,9 +6,8 @@ module EndView
     compile(__FILE__, Tilt::HamlTemplate)
     extend Forwardable
 
-    def initialize(id, title, form_builder, opts = {})
-      opts[:dismiss_value] ||= 'Cancel'
-      super(id, title, opts)
+    def initialize(form_builder, opts = {})
+      super({ dismiss_value: 'Cancel' }.merge(opts))
       @form_builder = form_builder
       @submit_value = opts[:submit_value] || 'Okay'
     end
@@ -17,8 +16,8 @@ module EndView
 
     attr_reader :form_builder, :submit_value
     def_delegators :form_builder, :form_opts,
-                   :authenticity_token_opts,
-                   :form_method_opts
+                                  :authenticity_token_opts,
+                                  :form_method_opts
 
     def submit_opts
       { class: 'btn btn-primary', type: 'submit' }
@@ -31,10 +30,11 @@ __END__
 .modal{modal_opts}
   .modal-dialog{dialog_opts}
     .modal-content
-      .modal-header
-        %button{close_opts}
-          %span(aria-hidden) &times;
-        %h4{title_opts}= @title
+      - if title
+        .modal-header
+          %button{close_opts}
+            %span(aria-hidden) &times;
+          %h4{title_opts}= title
       %form{form_opts}
         %input{authenticity_token_opts}
         %input{form_method_opts}
