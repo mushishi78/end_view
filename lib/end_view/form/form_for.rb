@@ -38,7 +38,7 @@ module EndView
     end
 
     def model_id
-      @model_id ||= (record.respond_to?(:to_key) && record.to_key.first) || nil
+      @model_id ||= ((record.respond_to?(:to_key) && record.to_key) || []).first
     end
 
     def action
