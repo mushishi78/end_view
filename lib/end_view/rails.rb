@@ -1,1 +1,1 @@
-require 'end_view/rails/rails_layout'
+require 'end_view/rails/layout'

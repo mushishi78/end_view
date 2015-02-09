@@ -1,2 +1,2 @@
-require 'end_view/form/form_helpers'
-require 'end_view/form/form_for'
+require 'end_view/form/builder'
+require 'end_view/form/record_builder'
