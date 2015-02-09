@@ -2,17 +2,21 @@ require 'attire'
 
 module EndView
   module Form
+    def self.builder(*args)
+      Builder.new(*args)
+    end
+
     class Builder
-      attr_init :form_url, :form_authenticity_token, form_method: 'post'
+      attr_init :form_url, :auth_token, form_method: 'post'
 
       def form_opts(opts = {})
         { action: form_url, method: 'post' }.merge(opts)
       end
 
-      def authenticity_token_opts(opts = {})
-        { name: 'authenticity_token',
+      def auth_token_opts(opts = {})
+        { name: 'auth_token',
           type: 'hidden',
-          value: form_authenticity_token }.merge(opts)
+          value: auth_token }.merge(opts)
       end
 
       def form_method_opts(opts = {})

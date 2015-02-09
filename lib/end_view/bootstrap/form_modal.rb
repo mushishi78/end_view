@@ -17,7 +17,7 @@ module EndView
 
       attr_reader :form_builder, :submit_value
       def_delegators :form_builder, :form_opts,
-                                    :authenticity_token_opts,
+                                    :auth_token_opts,
                                     :form_method_opts
 
       def submit_opts
@@ -38,7 +38,7 @@ __END__
             %span(aria-hidden) &times;
           %h4{title_opts}= title
       %form{form_opts}
-        %input{authenticity_token_opts}
+        %input{auth_token_opts}
         %input{form_method_opts}
         .modal-body= yield
         .modal-footer

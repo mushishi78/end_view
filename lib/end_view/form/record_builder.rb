@@ -3,12 +3,17 @@ require 'end_view/form/builder'
 
 module EndView
   module Form
+    def self.builder(obj, *args)
+      builder_class = obj.is_a?(String) ? Builder : RecordBuilder
+      builder_class.new(obj, *args)
+    end
+
     class RecordBuilder < Builder
-      attr_init :record, :form_authenticity_token, model_name: nil,
-                                                   model_id: nil,
-                                                   action: nil,
-                                                   form_method: nil,
-                                                   form_url: nil
+      attr_init :record, :auth_token, model_name: nil,
+                                      model_id: nil,
+                                      action: nil,
+                                      form_method: nil,
+                                      form_url: nil
 
       def form_opts(opts = {})
         super.merge(class: form_class, id: form_id).merge(opts)

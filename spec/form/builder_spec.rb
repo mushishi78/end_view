@@ -9,9 +9,9 @@ module EndView
         it { expect(builder.form_opts).to eq(action: 'my_url', method: 'post') }
       end
 
-      describe '#authenticity_token_opts' do
-        let(:opts) { { name: 'authenticity_token', type: 'hidden', value: 'my_token' } }
-        it { expect(builder.authenticity_token_opts).to eq(opts) }
+      describe '#auth_token_opts' do
+        let(:opts) { { name: 'auth_token', type: 'hidden', value: 'my_token' } }
+        it { expect(builder.auth_token_opts).to eq(opts) }
       end
 
       describe '#form_method_opts' do

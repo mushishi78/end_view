@@ -8,7 +8,7 @@ module EndView
 
       let(:form_builder) do
         double(form_opts: { class: 'my_form' },
-               authenticity_token_opts: { class: 'my_token' },
+               auth_token_opts: { class: 'my_token' },
                form_method_opts: { class: 'my_form_method' })
       end
 
