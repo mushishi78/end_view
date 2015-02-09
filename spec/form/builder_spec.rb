@@ -24,15 +24,25 @@ module EndView
       end
 
       describe '#input_opts' do
-        let(:opts) { { id: 'firstname', name: 'firstname', type: 'text' } }
-        it { expect(builder.input_opts(:firstname)).to eq(opts) }
+        it do
+          opts = { id: 'firstname', name: 'firstname', type: 'text' }
+          expect(builder.input_opts(:firstname)).to eq(opts)
+        end
 
         it { expect(builder.input_opts(:my_email)).to include(type: 'email') }
         it { expect(builder.input_opts(:phone)).to include(type: 'tel') }
         it { expect(builder.input_opts(:password)).to include(type: 'password') }
         it { expect(builder.input_opts(:url)).to include(type: 'url') }
-        it { expect(builder.input_opts(:search)).to include(type: 'search', placeholder: 'Search') }
-        it { expect(builder.input_opts(:card)).to include(pattern: '[0-9]{13,16}', autocomplete: 'off') }
+
+        it do
+          opts = { type: 'search', placeholder: 'Search' }
+          expect(builder.input_opts(:search)).to include(opts)
+        end
+
+        it do
+          opts = { pattern: '[0-9]{13,16}', autocomplete: 'off' }
+          expect(builder.input_opts(:card)).to include(opts)
+        end
 
         [:security_code, :csc, :cvd, :cvn, :cvv, :cvc, :ccv, :spc].each do |input|
           it { expect(builder.input_opts(input)).to include(size: 5, autocomplete: 'off') }

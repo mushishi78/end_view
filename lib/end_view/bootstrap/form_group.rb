@@ -44,7 +44,7 @@ module EndView
 
       def default
         @default ||= begin
-          match = defaults.find { |k, v| k.any? { |w| attribute =~ /#{w}/ } }
+          match = defaults.find { |k, _v| k.any? { |w| attribute =~ /#{w}/ } }
           match ? match[1] : {}
         end
       end

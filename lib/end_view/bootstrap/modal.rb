@@ -7,10 +7,10 @@ module EndView
   module Bootstrap
     class Modal
       include EndView.new(__FILE__, Tilt::HamlTemplate)
-      attr_init modal_id: "modal#{rand(10000)}",
+      attr_init modal_id: "modal#{rand(10_000)}",
                 title: nil,
                 size: nil,
-                label: "label#{rand(10000)}",
+                label: "label#{rand(10_000)}",
                 dismiss_value: 'Okay'
 
       def self.render(*args, &b)
