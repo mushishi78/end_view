@@ -1,12 +1,10 @@
 require 'end_view'
-require 'haml'
-require 'tilt/haml'
 require 'attire'
 
 module EndView
   module Bootstrap
     class Modal
-      include EndView.new(__FILE__, Tilt::HamlTemplate)
+      include EndView.new(__FILE__)
       attr_init modal_id: "modal#{rand(10_000)}",
                 title: nil,
                 size: nil,

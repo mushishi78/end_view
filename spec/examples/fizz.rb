@@ -8,4 +8,4 @@ end
 
 __END__
 
-Goodbye
+%h1 Goodbye

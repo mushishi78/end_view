@@ -16,15 +16,15 @@ class Foo
   include EndView.new(__FILE__)
 
   def my_method
-    'World'
+    'Hello World'
   end
 end
 
-Foo.new.render # Hello World
+Foo.new.render # <h1>Hello World</h1>
 
 __END__
 
-Hello <%= my_method %>
+%h1= my_method
 ```
 
 Alternatively, an instance of `EndView` can be extended:
@@ -34,26 +34,26 @@ module Baz
   extend EndView.new(__FILE__)
 
   def self.my_method
-    'World'
+    'Howdy World'
   end
 end
 
-Baz.render # Howdy World
+Baz.render # <h3>Howdy World</h3>
 
 __END__
 
-Howdy <%= my_method %>
+%h3= my_method
 ```
 
 ### Template Engine
 
-By default Tilt's ERB template engine is used, but alternative engines can be passed in:
+By default Tilt's Haml template engine is used, but alternative engines can be passed in:
 
 ``` ruby
-require 'tilt/haml'
+require 'tilt/erb'
 
 class Ham
-  include EndView.new(__FILE__, Tilt::HamlTemplate)
+  include EndView.new(__FILE__, Tilt::ERBTemplate)
 
   def my_method
     'Heya'
@@ -64,7 +64,7 @@ Ham.new.render # <h1>Heya</h1>
 
 __END__
 
-%h1= my_method
+<h1><%= my_method %></h1>
 ```
 
 To change the default engine:
@@ -86,7 +86,8 @@ MyLayout.render { "S'up" } # <html>S'up</html>
 
 __END__
 
-<html><%= yield %></html>
+%html
+  = yield
 ```
 
 These can then be used as layouts:
@@ -97,11 +98,11 @@ class Fizz
   self.layout = MyLayout
 end
 
-Fizz.new.render # <html>Goodbye</html>
+Fizz.new.render # <html><h1>Goodbye</h1></html>
 
 __END__
 
-Goodbye
+%h1 Goodbye
 ```
 
 For layouts that need to be dynamically initialized, `self.layout` can be passed a lambda:
@@ -117,7 +118,9 @@ end
 
 __END__
 
-<html><%= @title %><%= yield %></html>
+%html
+  %h1= @title
+  = yield
 ```
 
 ``` ruby
@@ -126,11 +129,11 @@ class Whizz
   self.layout = -> { MyDynamicLayout.new('Hallo') }
 end
 
-Whizz.new.render # <html>Hallo Bonjour</html>
+Whizz.new.render # <html> <h1>Hallo</h1> <p>Bonjour</p> </html>
 
 __END__
 
-Bonjour
+%p Bonjour
 ```
 
 ### Inheritance
@@ -144,7 +147,7 @@ class Bar < Foo
   end
 end
 
-Bar.new.render # Hello Porridge
+Bar.new.render # <h1>Porridge</h1>
 ```
 
 To override an inherited template, call the `compile` class method:
@@ -154,11 +157,11 @@ class Pop < Foo
   compile(__FILE__)
 end
 
-Pop.new.render # The World is too big!
+Pop.new.render # <p class="inherited">Hello World</p>
 
 __END__
 
-The <%= my_method %> is too big!
+%p.inherited= my_method
 ```
 
 ### locals
@@ -166,7 +169,7 @@ The <%= my_method %> is too big!
 Locals can be passed into the render method that override the view models:
 
 ``` ruby
-Foo.new.render(my_method: 'Stranger') # Hello Stranger
+Foo.new.render(my_method: 'Stranger') # <h1>Stranger</h1>
 ```
 
 ## Installation

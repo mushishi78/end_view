@@ -6,4 +6,4 @@ end
 
 __END__
 
-The <%= my_method %> is too big!
+%p.inherited= my_method

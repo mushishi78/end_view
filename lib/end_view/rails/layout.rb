@@ -1,13 +1,11 @@
 require 'end_view'
-require 'haml'
-require 'tilt/haml'
 require 'forwardable'
 require 'attire'
 
 module EndView
   module Rails
     class Layout
-      include EndView.new(__FILE__, Tilt::HamlTemplate)
+      include EndView.new(__FILE__)
       extend Forwardable
       attr_init :view_context, :title
 

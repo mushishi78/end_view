@@ -1,9 +1,8 @@
 require 'end_view'
-require 'haml'
-require 'tilt/haml'
+require 'tilt/erb'
 
 class Ham
-  include EndView.new(__FILE__, Tilt::HamlTemplate)
+  include EndView.new(__FILE__, Tilt::ERBTemplate)
 
   def my_method
     'Heya'
@@ -12,4 +11,4 @@ end
 
 __END__
 
-%h1= my_method
+<h1><%= my_method %></h1>

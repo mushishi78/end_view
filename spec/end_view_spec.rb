@@ -1,43 +1,45 @@
 require 'end_view'
+require 'rspec-html-matchers'
 
-require_relative 'examples/bar'
-require_relative 'examples/baz'
-require_relative 'examples/fizz'
-require_relative 'examples/foo'
-require_relative 'examples/ham'
-require_relative 'examples/pop'
-require_relative 'examples/whizz'
+%w(bar baz fizz foo ham pop whizz).each do |example|
+  require_relative "examples/#{example}"
+end
 
 describe EndView do
   it 'renders a simple template' do
-    expect(Foo.new.render).to eq("\n\nHello World\n")
+    expect(Foo.new.render).to have_tag('h1', text: 'Hello World')
   end
 
   it 'renders an inherited template' do
-    expect(Bar.new.render).to eq("\n\nHello Porridge\n")
+    expect(Bar.new.render).to have_tag('h1', text: 'Porridge')
   end
 
   it 'renders from singleton' do
-    expect(Baz.render).to eq("\n\nHowdy World\n")
+    expect(Baz.render).to have_tag('h3', text: 'Howdy World')
   end
 
   it 'can use a layout' do
-    expect(Fizz.new.render).to eq("\n\n<html>\n\nGoodbye\n</html>\n")
+    expect(Fizz.new.render).to have_tag('html') do
+      with_tag 'h1', text: 'Goodbye'
+    end
   end
 
   it 'uses supplied template engine' do
-    expect(Ham.new.render).to eq("<h1>Heya</h1>\n")
+    expect(Ham.new.render).to have_tag('h1', text: 'Heya')
   end
 
   it 'can override an inherited template' do
-    expect(Pop.new.render).to eq("\n\nThe World is too big!\n")
+    expect(Pop.new.render).to have_tag('p.inherited', text: 'Hello World')
   end
 
   it 'accepts locals passed in that override' do
-    expect(Foo.new.render(my_method: 'Stranger')).to eq("\n\nHello Stranger\n")
+    expect(Foo.new.render(my_method: 'Stranger')).to have_tag('h1', text: 'Stranger')
   end
 
   it 'can use a dynamic layout' do
-    expect(Whizz.new.render).to eq("\n\n<html>Hallo\n\nBonjour\n</html>\n")
+    expect(Whizz.new.render).to have_tag('html') do
+      with_tag 'h1', text: 'Hallo'
+      with_tag 'p', text: 'Bonjour'
+    end
   end
 end

@@ -4,10 +4,10 @@ module Baz
   extend EndView.new(__FILE__)
 
   def self.my_method
-    'World'
+    'Howdy World'
   end
 end
 
 __END__
 
-Howdy <%= my_method %>
+%h3= my_method

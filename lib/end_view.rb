@@ -1,11 +1,12 @@
-require 'tilt/erb'
+require 'haml'
+require 'tilt/haml'
 
 module EndView
   class << self
     attr_writer :default_engine
 
     def default_engine
-      @default_engine ||= Tilt::ERBTemplate
+      @default_engine ||= Tilt::HamlTemplate
     end
 
     def new(file, template_engine = EndView.default_engine)

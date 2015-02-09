@@ -4,10 +4,10 @@ class Foo
   include EndView.new(__FILE__)
 
   def my_method
-    'World'
+    'Hello World'
   end
 end
 
 __END__
 
-Hello <%= my_method %>
+%h1= my_method

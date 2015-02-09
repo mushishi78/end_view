@@ -4,7 +4,7 @@ require 'forwardable'
 module EndView
   module Bootstrap
     class FormModal < Modal
-      compile(__FILE__, Tilt::HamlTemplate)
+      compile(__FILE__)
       extend Forwardable
 
       def initialize(form_builder, opts = {})

@@ -10,4 +10,6 @@ end
 
 __END__
 
-<html><%= @title %><%= yield %></html>
+%html
+	%h1= @title
+	= yield

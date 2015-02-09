@@ -1,13 +1,11 @@
 require 'end_view'
-require 'haml'
-require 'tilt/haml'
 require 'attire'
 require 'inflecto'
 
 module EndView
   module Bootstrap
     class FormGroup
-      include EndView.new(__FILE__, Tilt::HamlTemplate)
+      include EndView.new(__FILE__)
       attr_method :render, :form_builder, :attribute, required: false,
                                                       label: nil,
                                                       left: nil,

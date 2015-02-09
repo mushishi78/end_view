@@ -12,4 +12,4 @@ end
 
 __END__
 
-Bonjour
+%p Bonjour
