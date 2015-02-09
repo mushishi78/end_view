@@ -4,7 +4,7 @@ require 'rspec-html-matchers'
 module EndView
   module Bootstrap
     describe FormModal do
-      let(:rendered) { FormModal.render(form_builder) { 'content' } }
+      let(:rendered) { FormModal.render('myModal', form_builder) { 'content' } }
 
       let(:form_builder) do
         double(form_opts: { class: 'my_form' },

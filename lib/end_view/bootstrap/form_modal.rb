@@ -9,20 +9,21 @@ module EndView
         new(*args).render(&b)
       end
 
-      def initialize(f, opts = {})
-        @f = f
+      def initialize(modal_id, form_builder, opts = {})
+        @modal_id = modal_id
+        @f = form_builder
         @cancel_value = opts[:cancel_value] || 'Cancel'
         @submit_value = opts[:submit_value] || 'Okay'
         @opts = { buttons: buttons }.merge(opts)
       end
 
       def render(&b)
-        super { Modal.render(opts, &b) }
+        super { Modal.render(modal_id, opts, &b) }
       end
 
       private
 
-      attr_reader :f, :cancel_value, :submit_value, :opts
+      attr_reader :f, :modal_id, :cancel_value, :submit_value, :opts
 
       def buttons
         [[cancel_opts, cancel_value], [submit_opts, submit_value]]

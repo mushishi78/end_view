@@ -4,14 +4,14 @@ require 'rspec-html-matchers'
 module EndView
   module Bootstrap
     describe Modal do
-      let(:rendered) { Modal.render(opts) { 'content' } }
+      let(:rendered) { Modal.render('myModal', opts) { 'content' } }
 
       context 'with opts' do
         let(:opts) do
-          { modal_id: 'myModal', title: 'Modal title', size: 'modal-lg', label: 'myModalLabel' }
+          { title: 'Modal title', size: 'modal-lg', label: 'myLabel' }
         end
 
-        let(:modal_opts) { { tabindex: -1, role: 'dialog', 'aria-labelledby' => 'myModalLabel' } }
+        let(:modal_opts) { { tabindex: -1, role: 'dialog', 'aria-labelledby' => 'myLabel' } }
         let(:close_opts) { { 'aria-label' => 'Close', 'data-dismiss' => 'modal' } }
         let(:dissmiss_opts) { { with: { 'data-dismiss' => 'modal' }, text: 'Okay' } }
 
@@ -21,7 +21,7 @@ module EndView
             with_tag '.modal-content'
             with_tag '.modal-header'
             with_tag 'button.close', with: close_opts
-            with_tag 'h4.modal-title#myModalLabel', text: 'Modal title'
+            with_tag 'h4.modal-title#myLabel', text: 'Modal title'
             with_tag '.modal-body', text: 'content'
             with_tag '.modal-footer'
             with_tag 'button.btn.btn-default', dissmiss_opts

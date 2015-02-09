@@ -5,18 +5,15 @@ module EndView
   module Bootstrap
     class Modal
       include EndView.new(__FILE__)
-      attr_init modal_id: "modal#{rand(10_000)}",
-                title: nil,
-                size: nil,
-                label: "label#{rand(10_000)}",
-                dismiss_value: 'Okay',
-                buttons: nil
+      attr_init :modal_id, title: nil,
+                           size: nil,
+                           label: nil,
+                           dismiss_value: 'Okay',
+                           buttons: nil
 
       def self.render(*args, &b)
         new(*args).render(&b)
       end
-
-      public :modal_id
 
       private
 
@@ -26,6 +23,10 @@ module EndView
           tabindex: -1,
           role: 'dialog',
           aria: { labelledby: label, hidden: true } }
+      end
+
+      def label
+        @label ||= "#{modal_id}Label"
       end
 
       def dialog_opts

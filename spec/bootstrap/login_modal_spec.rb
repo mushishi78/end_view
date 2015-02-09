@@ -4,7 +4,7 @@ require 'rspec-html-matchers'
 module EndView
   module Bootstrap
     describe LoginModal do
-      let(:rendered) { LoginModal.render(session, 'my_token') }
+      let(:rendered) { LoginModal.render('myModal', session, 'my_token') }
       let(:session) { double(class: 'MyProject::Session') }
 
       it 'renders' do
