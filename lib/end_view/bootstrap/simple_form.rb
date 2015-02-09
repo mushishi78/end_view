@@ -28,6 +28,6 @@ __END__
 %form{f.form_opts}
   %input{f.auth_token_opts}
   %input{f.form_method_opts}
-  - @attributes.each do |attribute|
+  - attributes.each do |attribute|
     = form_group(attribute)
   %button{type: 'submit'} Okay

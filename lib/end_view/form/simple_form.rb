@@ -27,7 +27,7 @@ __END__
 %form{f.form_opts}
   %input{f.auth_token_opts}
   %input{f.form_method_opts}
-  - @attributes.each do |attribute|
+  - attributes.each do |attribute|
     .form-group
       %label{f.label_opts(attribute)}= label(attribute)
       %input{f.input_opts(attribute)}/
