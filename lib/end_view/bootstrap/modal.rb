@@ -41,6 +41,10 @@ module EndView
         { class: 'modal-title', id: label }
       end
 
+      def buttons
+        [[dismiss_opts, dismiss_value]]
+      end
+
       def dismiss_opts
         { class: 'btn btn-default', 'data-dismiss' => :modal }
       end
@@ -60,4 +64,5 @@ __END__
           %h4{title_opts}= title
       .modal-body= yield
       .modal-footer
-        %button{dismiss_opts}= dismiss_value
+        - buttons.each do |(button_opts, button_value)|
+          %button{button_opts}= button_value
