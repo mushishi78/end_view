@@ -9,7 +9,7 @@ module EndView
       include EndView.new(__FILE__)
       extend Forwardable
 
-      attr_method :render, :obj, :auth_token, :attributes, builder_opts: {}
+      attr_method :render, :url_or_record, :auth_token, :attributes, builder_opts: {}
 
       private
 
@@ -20,7 +20,7 @@ module EndView
                                     :input_opts
 
       def form_builder
-        @form_builder ||= Form.builder(obj, auth_token, builder_opts)
+        @form_builder ||= Form.builder(url_or_record, auth_token, builder_opts)
       end
 
       def label(attribute)

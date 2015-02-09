@@ -3,9 +3,9 @@ require 'end_view/form/builder'
 
 module EndView
   module Form
-    def self.builder(obj, *args)
-      builder_class = obj.is_a?(String) ? Builder : RecordBuilder
-      builder_class.new(obj, *args)
+    def self.builder(url_or_record, *args)
+      builder_class = url_or_record.is_a?(String) ? Builder : RecordBuilder
+      builder_class.new(url_or_record, *args)
     end
 
     class RecordBuilder < Builder
