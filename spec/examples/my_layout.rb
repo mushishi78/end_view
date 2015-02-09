@@ -7,4 +7,4 @@ end
 __END__
 
 %html
-	= yield
+  = yield

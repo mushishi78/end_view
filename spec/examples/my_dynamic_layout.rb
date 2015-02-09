@@ -11,5 +11,5 @@ end
 __END__
 
 %html
-	%h1= @title
-	= yield
+  %h1= @title
+  = yield
