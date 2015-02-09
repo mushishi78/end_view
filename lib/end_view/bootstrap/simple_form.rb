@@ -1,10 +1,11 @@
 require 'end_view'
-require 'inflecto'
+require 'attire'
 require 'forwardable'
+require 'end_view/bootstrap/form_group'
 require 'end_view/form/record_builder'
 
 module EndView
-  module Form
+  module Bootstrap
     class SimpleForm
       include EndView.new(__FILE__)
       extend Forwardable
@@ -15,16 +16,14 @@ module EndView
 
       def_delegators :form_builder, :form_opts,
                                     :auth_token_opts,
-                                    :form_method_opts,
-                                    :label_opts,
-                                    :input_opts
+                                    :form_method_opts
 
       def form_builder
         @form_builder ||= Form.builder(obj, auth_token, builder_opts)
       end
 
-      def label(attribute)
-        Inflecto.humanize(attribute.to_s)
+      def form_group(attribute)
+        FormGroup.render(form_builder, attribute)
       end
     end
   end
@@ -36,7 +35,5 @@ __END__
   %input{auth_token_opts}
   %input{form_method_opts}
   - @attributes.each do |attribute|
-    .form-group
-      %label{label_opts(attribute)}= label(attribute)
-      %input{input_opts(attribute)}/
+    = form_group(attribute)
   %button{type: 'submit'} Okay
