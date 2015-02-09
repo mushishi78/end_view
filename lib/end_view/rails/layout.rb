@@ -9,10 +9,6 @@ module EndView
       extend Forwardable
       attr_init :view_context, :title
 
-      def self.render(*args, &b)
-        new(*args).render(&b)
-      end
-
       private
 
       def_delegators :view_context, :stylesheet_link_tag,

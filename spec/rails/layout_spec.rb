@@ -4,7 +4,7 @@ require 'rspec-html-matchers'
 module EndView
   module Rails
     describe Layout do
-      let(:rendered) { Layout.render(vc, 'My Title') { 'content' } }
+      let(:rendered) { Layout.new(vc, 'My Title').render { 'content' } }
       let(:vc) { double }
 
       before do
