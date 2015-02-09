@@ -11,8 +11,8 @@ module EndView
         new(*args).render
       end
 
-      def initialize(obj, auth_token, attributes)
-        super(Form.builder(obj, auth_token))
+      def initialize(obj, auth_token, attributes, opts = {})
+        super(Form.builder(obj, auth_token, opts))
         @attributes = attributes
       end
 
