@@ -9,7 +9,8 @@ module EndView
                 title: nil,
                 size: nil,
                 label: "label#{rand(10_000)}",
-                dismiss_value: 'Okay'
+                dismiss_value: 'Okay',
+                buttons: nil
 
       def self.render(*args, &b)
         new(*args).render(&b)
@@ -42,7 +43,7 @@ module EndView
       end
 
       def buttons
-        [[dismiss_opts, dismiss_value]]
+        @buttons ||= [[dismiss_opts, dismiss_value]]
       end
 
       def dismiss_opts

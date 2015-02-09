@@ -1,24 +1,36 @@
 require 'end_view/bootstrap/modal'
-require 'forwardable'
 
 module EndView
   module Bootstrap
-    class FormModal < Modal
-      compile(__FILE__)
-      extend Forwardable
+    class FormModal
+      include EndView.new(__FILE__)
 
-      def initialize(form_builder, opts = {})
-        super({ dismiss_value: 'Cancel' }.merge(opts))
-        @form_builder = form_builder
+      def self.render(*args, &b)
+        new(*args).render(&b)
+      end
+
+      def initialize(f, opts = {})
+        @f = f
+        @cancel_value = opts[:cancel_value] || 'Cancel'
         @submit_value = opts[:submit_value] || 'Okay'
+        @opts = { buttons: buttons }.merge(opts)
+      end
+
+      def render(&b)
+        super { Modal.render(opts, &b) }
       end
 
       private
 
-      attr_reader :form_builder, :submit_value
-      def_delegators :form_builder, :form_opts,
-                                    :auth_token_opts,
-                                    :form_method_opts
+      attr_reader :f, :cancel_value, :submit_value, :opts
+
+      def buttons
+        [[cancel_opts, cancel_value], [submit_opts, submit_value]]
+      end
+
+      def cancel_opts
+        { class: 'btn btn-default', 'data-dismiss' => :modal }
+      end
 
       def submit_opts
         { class: 'btn btn-primary', type: 'submit' }
@@ -29,18 +41,7 @@ end
 
 __END__
 
-.modal{modal_opts}
-  .modal-dialog{dialog_opts}
-    .modal-content
-      - if title
-        .modal-header
-          %button{close_opts}
-            %span(aria-hidden) &times;
-          %h4{title_opts}= title
-      %form{form_opts}
-        %input{auth_token_opts}
-        %input{form_method_opts}
-        .modal-body= yield
-        .modal-footer
-          %button{dismiss_opts}= dismiss_value
-          %button{submit_opts}= submit_value
+%form{f.form_opts}
+  %input{f.auth_token_opts}
+  %input{f.form_method_opts}
+  = yield
