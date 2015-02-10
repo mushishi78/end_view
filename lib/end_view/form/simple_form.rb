@@ -28,6 +28,7 @@ end
 
 __END__
 
+/ Simple Form
 %form{f.form_opts}
   %input{f.auth_token_opts}
   %input{f.form_method_opts}

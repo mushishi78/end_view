@@ -70,6 +70,7 @@ end
 
 __END__
 
+/ Bootstrap Form Group
 .form-group
   - if label
     %label{label_opts}= label

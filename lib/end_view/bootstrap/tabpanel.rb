@@ -49,15 +49,16 @@ end
 
 __END__
 
+/ Bootstrap Tabpanel
 %div{id: id, role: 'tabpanel'}
 
-  / Nav tabs
+  / Nav Tabs
   %ul.nav.nav-tabs{role: 'tablist'}
     - panes.each do |pane|
       %li{role: 'presentation', class: pane.active}
         %a{link_opts(pane)}= pane.label
 
-  / Tab panes
+  / Tab Panes
   .tab-content
     - panes.each do |pane|
       .tab-pane{pane_opts(pane)}= pane.render

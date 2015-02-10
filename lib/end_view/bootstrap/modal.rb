@@ -60,15 +60,22 @@ end
 
 __END__
 
+/ Bootstrap Modal
 .modal{modal_opts}
   .modal-dialog{dialog_opts}
     .modal-content
+
       - if title
+        / Modal Header
         .modal-header
           %button{close_opts}
             %span(aria-hidden) &times;
           %h4{title_opts}= title
+
+      / Modal Body
       .modal-body= yield
+
+      / Modal Footer
       .modal-footer
         - buttons.each do |(button_opts, button_value)|
           %button{button_opts}= button_value

@@ -52,6 +52,7 @@ end
 
 __END__
 
+/ Bootstrap Form Modal
 %form{f.form_opts}
   %input{f.auth_token_opts}
   %input{f.form_method_opts}
