@@ -7,17 +7,17 @@ module EndView
   module Bootstrap
     class SimpleForm
       include EndView.new(__FILE__)
-
-      attr_method :render, :url_or_record, :auth_token, :attributes, builder_opts: {}
+      attr_method :render, :url_or_record, :auth_token, :attributes, :'opts = {}'
 
       private
 
-      def f
-        @f ||= Form.builder(url_or_record, auth_token, builder_opts)
+      def form_builder
+        @form_builder ||= Form.builder(url_or_record, auth_token, opts)
       end
+      alias_method :f, :form_builder
 
       def form_group(attribute)
-        FormGroup.render(f, attribute)
+        FormGroup.render(form_builder, attribute)
       end
     end
   end
