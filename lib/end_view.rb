@@ -34,7 +34,7 @@ module EndView
     end
 
     def compile(file, template_engine = EndView.default_engine)
-      @template = template_engine.new { data(file) }
+      @template = template_engine.new(file) { data(file) }
     end
 
     attr_accessor :layout, :template
