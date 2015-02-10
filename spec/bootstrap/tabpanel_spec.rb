@@ -23,16 +23,20 @@ module EndView
           subject.add_pane('settings') { 'Settings content' }
         end
 
+        def link_opts(id)
+          { href: "##{id}", 'aria-controls' => id }
+        end
+
         it 'renders' do
           expect(subject.render).to have_tag('div', with: { role: 'tabpanel' }) do
             with_tag 'ul.nav.nav-tabs', with: { role: 'tablist' }
             with_tag 'li', with: { role: 'presentation' }, count: 4
             with_tag 'li.active', count: 1
             with_tag 'a', with: { 'data-toggle' => 'tab', role: 'tab' }, count: 4
-            with_tag 'a', with: { href: '#home', 'aria-controls' => 'home'}, text: 'Home'
-            with_tag 'a', with: { href: '#profile', 'aria-controls' => 'profile'}, text: 'Profile'
-            with_tag 'a', with: { href: '#messages', 'aria-controls' => 'messages'}, text: 'Messages'
-            with_tag 'a', with: { href: '#settings', 'aria-controls' => 'settings'}, text: 'Settings'
+            with_tag 'a', with: link_opts('home'), text: 'Home'
+            with_tag 'a', with: link_opts('profile'), text: 'Profile'
+            with_tag 'a', with: link_opts('messages'), text: 'Messages'
+            with_tag 'a', with: link_opts('settings'), text: 'Settings'
             with_tag '.tab-content'
             with_tag '.tab-pane', with: { role: 'tabpanel' }, count: 4
             with_tag '.tab-pane#home.active', text: 'Home content'
