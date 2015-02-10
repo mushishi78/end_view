@@ -34,16 +34,11 @@ module EndView
     end
 
     def compile(file, template_engine = EndView.default_engine)
-      @template = template_engine.new(file) { data(file) }
+      data = IO.read(file).gsub("\r\n", "\n").split(/^__END__$/).last
+      @template = template_engine.new(file) { data }
     end
 
     attr_accessor :layout, :template
-
-    private
-
-    def data(file)
-      IO.read(file).gsub("\r\n", "\n").split(/^__END__$/)[1]
-    end
   end
 
   module Methods
