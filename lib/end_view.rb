@@ -29,6 +29,7 @@ module EndView
 
   module ClassMethods
     def inherited(child)
+      super
       child.template = template
       child.layout = layout
     end
