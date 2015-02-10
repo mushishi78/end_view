@@ -8,7 +8,7 @@ module EndView
 
   module Bootstrap
     class Modal
-      include EndView.new(__FILE__)
+      include EndView
       attr_init :id, title: nil,
                      size: nil,
                      label: nil,

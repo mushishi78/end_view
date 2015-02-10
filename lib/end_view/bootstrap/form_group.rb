@@ -9,7 +9,7 @@ module EndView
 
   module Bootstrap
     class FormGroup
-      include EndView.new(__FILE__)
+      include EndView
       attr_method :render, :form_builder, :attribute, required: false,
                                                       label: nil,
                                                       left: nil,

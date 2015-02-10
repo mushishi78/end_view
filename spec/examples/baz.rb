@@ -1,7 +1,7 @@
 require 'end_view'
 
 module Baz
-  extend EndView.new(__FILE__)
+  extend EndView
 
   def self.my_method
     'Howdy World'

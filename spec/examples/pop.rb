@@ -1,7 +1,7 @@
 require_relative 'foo'
 
 class Pop < Foo
-  compile(__FILE__)
+  compile_template
 end
 
 __END__

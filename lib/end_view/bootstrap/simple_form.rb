@@ -10,7 +10,7 @@ module EndView
 
   module Bootstrap
     class SimpleForm
-      include EndView.new(__FILE__)
+      include EndView
       attr_method :render, :url_or_record, :auth_token, :attributes, :'opts = {}'
 
       private

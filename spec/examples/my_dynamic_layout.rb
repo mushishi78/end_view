@@ -1,7 +1,7 @@
 require 'end_view'
 
 class MyDynamicLayout
-  include EndView.new(__FILE__)
+  include EndView
 
   def initialize(title)
     @title = title

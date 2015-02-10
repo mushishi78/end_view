@@ -2,8 +2,8 @@ require 'end_view'
 require_relative 'my_layout'
 
 class Fizz
-  include EndView.new(__FILE__)
-  self.layout = MyLayout
+  include EndView
+  layout MyLayout
 end
 
 __END__

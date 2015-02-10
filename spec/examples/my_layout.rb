@@ -1,7 +1,7 @@
 require 'end_view'
 
 module MyLayout
-  extend EndView.new(__FILE__)
+  extend EndView
 end
 
 __END__

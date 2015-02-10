@@ -2,7 +2,7 @@ require 'end_view'
 require 'tilt/erb'
 
 class Ham
-  include EndView.new(__FILE__, Tilt::ERBTemplate)
+  include EndView.new(template_engine: Tilt::ERBTemplate)
 
   def my_method
     'Heya'

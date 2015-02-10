@@ -9,7 +9,7 @@ module EndView
 
   module Bootstrap
     class Tabpanel
-      include EndView.new(__FILE__)
+      include EndView
       attr_init id: nil, panes: [], fade: false, active_pane: 0
       public :panes
 

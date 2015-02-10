@@ -1,7 +1,7 @@
 require 'end_view'
 
 class Foo
-  include EndView.new(__FILE__)
+  include EndView
 
   def my_method
     'Hello World'

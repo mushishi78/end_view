@@ -8,7 +8,7 @@ module EndView
 
   module Rails
     class Layout
-      include EndView.new(__FILE__)
+      include EndView
       attr_init :view_context, :title, head: nil
 
       private

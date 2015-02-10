@@ -7,7 +7,7 @@ module EndView
 
   module Bootstrap
     class FormModal
-      include EndView.new(__FILE__)
+      include EndView
 
       def self.render(*args, &b)
         new(*args).render(&b)
