@@ -2,11 +2,11 @@ require 'end_view'
 require 'attire'
 
 module EndView
-  def self.rails_layout(*args)
-    Rails::Layout.new(*args)
-  end
-
   module Rails
+    def self.layout(*args)
+      Layout.new(*args)
+    end
+
     class Layout
       include EndView
       attr_init :view_context, :title, head: nil

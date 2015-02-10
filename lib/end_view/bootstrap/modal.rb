@@ -2,11 +2,11 @@ require 'end_view'
 require 'attire'
 
 module EndView
-  def self.bootstrap_modal(*args, &b)
-    Bootstrap::Modal.render(*args, &b)
-  end
-
   module Bootstrap
+    def self.modal(*args, &b)
+      Modal.render(*args, &b)
+    end
+
     class Modal
       include EndView
       attr_init :id, title: nil,

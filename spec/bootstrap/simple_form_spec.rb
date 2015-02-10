@@ -14,7 +14,7 @@ module EndView
       end
 
       before do
-        allow(EndView).to receive(:form_builder).and_return(builder)
+        allow(Form).to receive(:builder).and_return(builder)
         allow(FormGroup).to receive(:render)
           .with(builder, :first_name).and_return('<first_name />')
         allow(FormGroup).to receive(:render)

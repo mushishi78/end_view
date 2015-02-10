@@ -2,12 +2,12 @@ require 'inflecto'
 require 'end_view/form/builder'
 
 module EndView
-  def self.form_builder(url_or_record, *args)
-    builder_class = url_or_record.is_a?(String) ? Form::Builder : Form::RecordBuilder
-    builder_class.new(url_or_record, *args)
-  end
-
   module Form
+    def self.builder(url_or_record, *args)
+      builder_class = url_or_record.is_a?(String) ? Builder : RecordBuilder
+      builder_class.new(url_or_record, *args)
+    end
+
     class RecordBuilder < Builder
       attr_init :record, :auth_token, model_name: nil,
                                       model_id: nil,

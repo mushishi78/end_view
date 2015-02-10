@@ -3,11 +3,11 @@ require 'end_view/bootstrap/form_group'
 require 'end_view/form'
 
 module EndView
-  def self.bootstrap_simple_form_modal(*args)
-    Bootstrap::SimpleFormModal.render(*args)
-  end
-
   module Bootstrap
+    def self.simple_form_modal(*args)
+      SimpleFormModal.render(*args)
+    end
+
     class SimpleFormModal
       attr_method :render, :id,
                            :url_or_record,
@@ -25,7 +25,7 @@ module EndView
       private
 
       def form_builder
-        @form_builder ||= EndView.form_builder(url_or_record, auth_token, form_opts)
+        @form_builder ||= Form.builder(url_or_record, auth_token, form_opts)
       end
 
       def form_group(attribute)

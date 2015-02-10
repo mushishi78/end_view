@@ -3,11 +3,11 @@ require 'attire'
 require 'end_view/bootstrap/tab_pane'
 
 module EndView
-  def self.bootstrap_tabpanel(*args)
-    Bootstrap::Tabpanel.new(*args)
-  end
-
   module Bootstrap
+    def self.tabpanel(*args)
+      Tabpanel.new(*args)
+    end
+
     class Tabpanel
       include EndView
       attr_init id: nil, panes: [], fade: false, active_pane: 0

@@ -3,11 +3,11 @@ require 'attire'
 require 'inflecto'
 
 module EndView
-  def self.bootstrap_form_group(*args)
-    Bootstrap::FormGroup.render(*args)
-  end
-
   module Bootstrap
+    def self.form_group(*args)
+      FormGroup.render(*args)
+    end
+
     class FormGroup
       include EndView
       attr_method :render, :form_builder, :attribute, required: false,

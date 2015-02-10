@@ -4,11 +4,11 @@ require 'end_view/bootstrap/form_group'
 require 'end_view/form/record_builder'
 
 module EndView
-  def self.bootstrap_simple_form(*args)
-    Bootstrap::SimpleForm.render(*args)
-  end
-
   module Bootstrap
+    def self.simple_form(*args)
+      SimpleForm.render(*args)
+    end
+
     class SimpleForm
       include EndView
       attr_method :render, :url_or_record, :auth_token, :attributes, :'opts = {}'
@@ -16,7 +16,7 @@ module EndView
       private
 
       def form_builder
-        @form_builder ||= EndView.form_builder(url_or_record, auth_token, opts)
+        @form_builder ||= Form.builder(url_or_record, auth_token, opts)
       end
       alias_method :f, :form_builder
 
