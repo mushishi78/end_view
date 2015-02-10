@@ -9,11 +9,11 @@ module EndView
   module Bootstrap
     class Modal
       include EndView.new(__FILE__)
-      attr_init :modal_id, title: nil,
-                           size: nil,
-                           label: nil,
-                           dismiss_value: 'Okay',
-                           buttons: nil
+      attr_init :id, title: nil,
+                     size: nil,
+                     label: nil,
+                     dismiss_value: 'Okay',
+                     buttons: nil
 
       def self.render(*args, &b)
         new(*args).render(&b)
@@ -22,7 +22,7 @@ module EndView
       private
 
       def modal_opts
-        { id: modal_id,
+        { id: id,
           class: 'fade',
           tabindex: -1,
           role: 'dialog',
@@ -30,7 +30,7 @@ module EndView
       end
 
       def label
-        @label ||= "#{modal_id}Label"
+        @label ||= "#{id}Label"
       end
 
       def dialog_opts

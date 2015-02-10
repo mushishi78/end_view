@@ -13,10 +13,10 @@ module EndView
         new(*args).render(&b)
       end
 
-      attr_init :modal_id, :form_builder, :'opts = {}'
+      attr_init :id, :form_builder, :'opts = {}'
 
-      def render(&b)
-        super { Modal.render(modal_id, opts_with_buttons, &b) }
+      def render(*args, &b)
+        super(*args) { Modal.render(id, opts_with_buttons, &b) }
       end
 
       private

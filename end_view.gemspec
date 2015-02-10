@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.add_runtime_dependency 'tilt'
   s.add_runtime_dependency 'haml'
-  s.add_runtime_dependency 'attire', '~> 0.1', '>= 0.1.2'
+  s.add_runtime_dependency 'attire', '~> 0.1', '>= 0.1.3'
   s.add_runtime_dependency 'inflecto', '~> 0.0', '>= 0.0.2'
   s.add_development_dependency 'rspec', '~> 3.1', '>= 3.1.0'
   s.add_development_dependency 'rspec-html-matchers', '~> 0.6', '>= 0.6.1'

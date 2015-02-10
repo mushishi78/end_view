@@ -9,7 +9,7 @@ module EndView
 
   module Bootstrap
     class SimpleFormModal
-      attr_method :render, :modal_id,
+      attr_method :render, :id,
                            :url_or_record,
                            :auth_token,
                            :attributes,
@@ -17,7 +17,7 @@ module EndView
                            :'modal_opts= {}'
 
       def render
-        FormModal.render(modal_id, form_builder, modal_opts) do
+        FormModal.render(id, form_builder, modal_opts) do
           attributes.map { |attribute| form_group(attribute) }.join
         end
       end
