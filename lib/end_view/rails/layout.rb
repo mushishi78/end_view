@@ -1,5 +1,4 @@
 require 'end_view'
-require 'forwardable'
 require 'attire'
 
 module EndView
@@ -10,14 +9,11 @@ module EndView
   module Rails
     class Layout
       include EndView.new(__FILE__)
-      extend Forwardable
-      attr_init :view_context, :title
+      attr_init :view_context, :title, head: nil
 
       private
 
-      def_delegators :view_context, :stylesheet_link_tag,
-                                    :javascript_include_tag,
-                                    :csrf_meta_tags
+      alias_method :vc, :view_context
 
       def stylesheet_args
         ['application', { media: 'all', 'data-turbolinks-track' => true }]
@@ -36,7 +32,8 @@ __END__
 %html
   %head
     %title= title
-    = stylesheet_link_tag(*stylesheet_args)
-    = javascript_include_tag(*javascript_args)
-    = csrf_meta_tags
+    = vc.stylesheet_link_tag(*stylesheet_args)
+    = vc.javascript_include_tag(*javascript_args)
+    = vc.csrf_meta_tags
+    = head
   %body= yield
