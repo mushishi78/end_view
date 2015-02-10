@@ -3,9 +3,12 @@ require 'rspec-html-matchers'
 
 module EndView
   module Bootstrap
-    describe LoginModal do
-      let(:rendered) { LoginModal.render('myModal', session, 'my_token') }
-      let(:session) { double(class: 'MyProject::Session') }
+    describe SimpleFormModal do
+      let(:rendered) do
+        SimpleFormModal.render('myModal', record, 'my_token', attributes)
+      end
+      let(:attributes) { [:email, :password] }
+      let(:record) { double(class: 'MyProject::Session') }
 
       it 'renders' do
         expect(rendered).to have_tag('form', with: { action: '/sessions/' }) do
