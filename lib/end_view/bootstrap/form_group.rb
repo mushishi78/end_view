@@ -3,6 +3,10 @@ require 'attire'
 require 'inflecto'
 
 module EndView
+  def self.bootstrap_form_group(*args)
+    Bootstrap::FormGroup.render(*args)
+  end
+
   module Bootstrap
     class FormGroup
       include EndView.new(__FILE__)

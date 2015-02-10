@@ -12,19 +12,19 @@ module EndView
       end
 
       before do
-        allow(Form).to receive(:builder).and_return(builder)
+        allow(EndView).to receive(:form_builder).and_return(builder)
         allow(FormGroup).to receive(:render)
-          .with(builder, :first_name).and_return('<p>first_name</p>')
+          .with(builder, :first_name).and_return('<first_name />')
         allow(FormGroup).to receive(:render)
-          .with(builder, :email).and_return('<p>email</p>')
+          .with(builder, :email).and_return('<email />')
       end
 
       it 'renders' do
         expect(rendered).to have_tag('form.my_form_opts') do
           with_tag 'input.my_auth_token_opts'
           with_tag 'input.my_form_method_opts'
-          with_tag 'p', text: 'first_name'
-          with_tag 'p', text: 'email'
+          with_tag 'first_name'
+          with_tag 'email'
           with_tag 'button', with: { type: 'submit' }
         end
       end

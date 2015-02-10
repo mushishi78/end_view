@@ -1,19 +1,19 @@
 require 'end_view/form'
 
 module EndView
-  module Form
-    describe '.builder' do
-      it 'uses Builder for strings' do
-        expect(Builder).to receive(:new)
-        Form.builder('/users/1', 'my_token')
-      end
-
-      it 'uses RecordBuilder for not strings' do
-        expect(RecordBuilder).to receive(:new)
-        Form.builder(double, 'my_token')
-      end
+  describe '.form_builder' do
+    it 'uses Builder for strings' do
+      expect(Form::Builder).to receive(:new)
+      EndView.form_builder('/users/1', 'my_token')
     end
 
+    it 'uses RecordBuilder for not strings' do
+      expect(Form::RecordBuilder).to receive(:new)
+      EndView.form_builder(double, 'my_token')
+    end
+  end
+
+  module Form
     describe RecordBuilder do
       subject { RecordBuilder.new(record, 'my_token') }
 

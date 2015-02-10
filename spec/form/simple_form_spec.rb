@@ -14,7 +14,7 @@ module EndView
       end
 
       before do
-        allow(Form).to receive(:builder).and_return(builder)
+        allow(EndView).to receive(:form_builder).and_return(builder)
       end
 
       it 'renders' do

@@ -1,6 +1,10 @@
 require 'end_view/bootstrap/modal'
 
 module EndView
+  def self.bootstrap_form_modal(*args, &b)
+    Bootstrap::FormModal.render(*args, &b)
+  end
+
   module Bootstrap
     class FormModal
       include EndView.new(__FILE__)

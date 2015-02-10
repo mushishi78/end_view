@@ -1,11 +1,11 @@
 require 'attire'
 
 module EndView
-  module Form
-    def self.builder(*args)
-      Builder.new(*args)
-    end
+  def self.form_builder(*args)
+    Form::Builder.new(*args)
+  end
 
+  module Form
     class Builder
       attr_init :form_url, :auth_token, form_method: 'post'
 

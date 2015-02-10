@@ -2,6 +2,10 @@ require 'end_view'
 require 'attire'
 
 module EndView
+  def self.bootstrap_modal(*args, &b)
+    Bootstrap::Modal.render(*args, &b)
+  end
+
   module Bootstrap
     class Modal
       include EndView.new(__FILE__)

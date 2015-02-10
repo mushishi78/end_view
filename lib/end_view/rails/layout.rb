@@ -3,6 +3,10 @@ require 'forwardable'
 require 'attire'
 
 module EndView
+  def self.rails_layout(*args)
+    Rails::Layout.new(*args)
+  end
+
   module Rails
     class Layout
       include EndView.new(__FILE__)
