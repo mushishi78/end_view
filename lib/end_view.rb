@@ -9,7 +9,7 @@ module EndView
       @default_engine ||= Tilt::HamlTemplate
     end
 
-    def new(file, template_engine = EndView.default_engine)
+    def new(file, template_engine = default_engine)
       Module.new do
         define_singleton_method(:included) do |base|
           base.extend ClassMethods
