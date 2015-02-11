@@ -1,6 +1,4 @@
 require 'end_view/bootstrap'
-require 'end_view/form'
-require 'rspec-html-matchers'
 
 module EndView
   module Bootstrap

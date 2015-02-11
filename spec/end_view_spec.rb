@@ -1,5 +1,4 @@
 require 'end_view'
-require 'rspec-html-matchers'
 
 %w(bar baz fizz foo ham pop whizz).each do |example|
   require_relative "examples/#{example}"
