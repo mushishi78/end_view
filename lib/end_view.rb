@@ -56,7 +56,7 @@ module EndView
     private
 
     def caller_file(start)
-      caller(start, 1).first.split(/:\d*:in/).first
+      caller(start).first.split(/:\d*:in/).first
     end
 
     def data(file)
