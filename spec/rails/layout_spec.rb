@@ -3,7 +3,7 @@ require 'end_view/rails'
 module EndView
   module Rails
     describe Layout do
-      let(:rendered) { Layout.new(vc, 'My Title').render { 'content' } }
+      let(:rendered) { Layout.new(vc, title: 'My Title').render { 'content' } }
       let(:vc) { double }
 
       before do

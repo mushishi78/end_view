@@ -15,11 +15,13 @@ module EndView
       end
 
       describe '#render' do
-        before do
-          subject.add_pane('home') { 'Home content' }
-          subject.add_pane('profile') { 'Profile content' }
-          subject.add_pane('messages') { 'Messages content' }
-          subject.add_pane('settings') { 'Settings content' }
+        let(:rendered) do
+          subject.render do
+            add_pane('home') { 'Home content' }
+            add_pane('profile') { 'Profile content' }
+            add_pane('messages') { 'Messages content' }
+            add_pane('settings') { 'Settings content' }
+          end
         end
 
         def link_opts(id)
@@ -27,7 +29,7 @@ module EndView
         end
 
         it 'renders' do
-          expect(subject.render).to have_tag('div', with: { role: 'tabpanel' }) do
+          expect(rendered).to have_tag('div', with: { role: 'tabpanel' }) do
             with_tag 'ul.nav.nav-tabs', with: { role: 'tablist' }
             with_tag 'li', with: { role: 'presentation' }, count: 4
             with_tag 'li.active', count: 1
@@ -49,7 +51,7 @@ module EndView
           let(:opts) { { id: 'my_panel', fade: true, active_pane: 2 } }
 
           it 'renders' do
-            expect(subject.render).to have_tag('div#my_panel') do
+            expect(rendered).to have_tag('div#my_panel') do
               with_tag '.tab-pane#home.fade'
               with_tag '.tab-pane#profile.fade'
               with_tag '.tab-pane#messages.fade.in.active'

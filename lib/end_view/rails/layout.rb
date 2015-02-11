@@ -3,24 +3,32 @@ require 'attire'
 
 module EndView
   module Rails
-    def self.layout(*args)
-      Layout.new(*args)
+    def self.layout(*args, &b)
+      Layout.render(*args, &b)
     end
 
     class Layout
       include EndView
-      attr_init :view_context, :title, head: nil
+
+      def self.render(*args, &b)
+        new(*args).render(&b)
+      end
+
+      attr_init :view_context, title: nil,
+                               stylesheet_file: 'application',
+                               javascript_file: 'application',
+                               head: nil
 
       private
 
       alias_method :vc, :view_context
 
       def stylesheet_args
-        ['application', { media: 'all', 'data-turbolinks-track' => true }]
+        [stylesheet_file, { media: 'all', 'data-turbolinks-track' => true }]
       end
 
       def javascript_args
-        ['application', { 'data-turbolinks-track' => true }]
+        [javascript_file, { 'data-turbolinks-track' => true }]
       end
     end
   end
@@ -31,7 +39,8 @@ __END__
 !!! 5
 %html
   %head
-    %title= title
+    - if title
+      %title= title
     = vc.stylesheet_link_tag(*stylesheet_args)
     = vc.javascript_include_tag(*javascript_args)
     = vc.csrf_meta_tags

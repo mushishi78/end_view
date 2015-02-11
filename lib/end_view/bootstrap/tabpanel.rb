@@ -4,12 +4,17 @@ require 'end_view/bootstrap/tab_pane'
 
 module EndView
   module Bootstrap
-    def self.tabpanel(*args)
-      Tabpanel.new(*args)
+    def self.tabpanel(*args, &b)
+      Tabpanel.render(*args, &b)
     end
 
     class Tabpanel
       include EndView
+
+      def self.render(opts = {}, &b)
+        new(opts).render(&b)
+      end
+
       attr_init id: nil, panes: [], fade: false, active_pane: 0
       public :panes
 
@@ -18,8 +23,9 @@ module EndView
       end
 
       def render(*args, &b)
+        instance_exec(&b) if b
         set_active_pane
-        super(*args, &b)
+        super(*args)
       end
 
       private
