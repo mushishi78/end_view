@@ -3,17 +3,17 @@
 [![Build Status](https://travis-ci.org/mushishi78/end_view.svg?branch=master)](https://travis-ci.org/mushishi78/end_view)
 [![Gem Version](https://badge.fury.io/rb/end_view.svg)](http://badge.fury.io/rb/end_view)
 
-View model and template in same file using the [tilt gem](https://github.com/rtomayko/tilt).
+View model and template in same file.
 
 ## Usage
 
-To use, include a new instance of `EndView`, passing `__File__` into the constructor and put the template at the bottom of the file after `__END__`.
+Given a ruby file with a template written after `__END__`, the `EndView` mixin will provide a `render` method to execute it:
 
 ``` ruby
 require 'end_view'
 
 class Foo
-  include EndView.new(__FILE__)
+  include EndView
 
   def my_method
     'Hello World'
@@ -27,11 +27,11 @@ __END__
 %h1= my_method
 ```
 
-Alternatively, an instance of `EndView` can be extended:
+`EndView` can also be use to extend an object:
 
 ``` ruby
 module Baz
-  extend EndView.new(__FILE__)
+  extend EndView
 
   def self.my_method
     'Howdy World'
@@ -47,13 +47,19 @@ __END__
 
 ### Template Engine
 
-By default Tilt's Haml template engine is used, but alternative engines can be passed in:
+By default Tilt's Haml template engine is used. To change the default engine:
+
+``` ruby
+EndView.default_engine = Tilt::ERBTemplate
+```
+
+Or to specify an engine for a particular class:
 
 ``` ruby
 require 'tilt/erb'
 
 class Ham
-  include EndView.new(__FILE__, Tilt::ERBTemplate)
+  include EndView.new(template_engine: Tilt::ERBTemplate)
 
   def my_method
     'Heya'
@@ -67,19 +73,13 @@ __END__
 <h1><%= my_method %></h1>
 ```
 
-To change the default engine:
-
-``` ruby
-EndView.default_engine = Tilt::LiquidTemplate
-```
-
 ### Layouts
 
 For template engines that support it, view models can be passed blocks:
 
 ``` ruby
 module MyLayout
-  extend EndView.new(__FILE__)
+  extend EndView
 end
 
 MyLayout.render { "S'up" } # <html>S'up</html>
@@ -94,8 +94,8 @@ These can then be used as layouts:
 
 ``` ruby
 class Fizz
-  include EndView.new(__FILE__)
-  self.layout = MyLayout
+  include EndView
+  layout MyLayout
 end
 
 Fizz.new.render # <html><h1>Goodbye</h1></html>
@@ -105,11 +105,11 @@ __END__
 %h1 Goodbye
 ```
 
-For layouts that need to be dynamically initialized, `self.layout` can be passed a lambda:
+For layouts that need to be dynamically initialized, `layout` can be passed a lambda:
 
 ``` ruby
 class MyDynamicLayout
-  include EndView.new(__FILE__)
+  include EndView
 
   def initialize(title)
     @title = title
@@ -125,8 +125,8 @@ __END__
 
 ``` ruby
 class Whizz
-  include EndView.new(__FILE__)
-  self.layout = -> { MyDynamicLayout.new('Hallo') }
+  include EndView
+  layout -> { MyDynamicLayout.new('Hallo') }
 end
 
 Whizz.new.render # <html> <h1>Hallo</h1> <p>Bonjour</p> </html>
@@ -150,11 +150,11 @@ end
 Bar.new.render # <h1>Porridge</h1>
 ```
 
-To override an inherited template, call the `compile` class method:
+To override an inherited template, call the `compile_template` class method:
 
 ``` ruby
 class Pop < Foo
-  compile(__FILE__)
+  compile_template
 end
 
 Pop.new.render # <p class="inherited">Hello World</p>
@@ -164,7 +164,7 @@ __END__
 %p.inherited= my_method
 ```
 
-### locals
+### Locals
 
 Locals can be passed into the render method that override the view models:
 

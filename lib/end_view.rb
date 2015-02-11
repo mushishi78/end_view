@@ -67,7 +67,7 @@ module EndView
   module Methods
     def render(*args, &b)
       rendered_template = template.render(self, *args, &b)
-      layout = self.retrieve_layout
+      layout = retrieve_layout
       layout ? layout.render { rendered_template } : rendered_template
     end
   end
