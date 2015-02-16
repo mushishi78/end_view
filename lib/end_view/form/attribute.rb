@@ -1,5 +1,6 @@
 require 'attire'
 require 'inflecto'
+require 'forwardable'
 require_relative 'defaults'
 
 module EndView

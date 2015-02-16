@@ -1,3 +1,4 @@
+require 'forwardable'
 require 'end_view/form/attribute'
 require_relative 'defaults'
 
