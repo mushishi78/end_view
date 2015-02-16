@@ -1,6 +1,4 @@
-require 'end_view'
-require 'attire'
-require 'inflecto'
+require 'end_view/form/form_group'
 
 module EndView
   module Bootstrap
@@ -8,80 +6,27 @@ module EndView
       FormGroup.render(*args)
     end
 
-    class FormGroup
-      include EndView
-      attr_method :render, :form_builder, :attribute, required: false,
-                                                      label: nil,
-                                                      left: nil,
-                                                      right: nil,
-                                                      input_opts: {},
-                                                      label_opts: {}
-
+    class FormGroup < Form::FormGroup
       private
 
-      def input_opts
-        form_builder.input_opts(attribute, @input_opts)
+      def group_opts
+        { class: 'form-group' }
       end
 
-      def label_opts
-        form_builder.label_opts(attribute, @label_opts)
-      end
+      def control(&b)
+        control_opts = add_class(a.control_opts, 'form-control')
+        return haml_tag(a.control_tag, control_opts, &b) unless a.addon?
 
-      def label
-        @label = default[:label] || Inflecto.humanize(attribute.to_s) if @label.nil?
-        @label
-      end
-
-      def left
-        @left ||= default[:left]
-      end
-
-      def right
-        @right ||= default[:right]
-      end
-
-      def required
-        @required ||= default[:required]
-      end
-
-      def default
-        @default ||= begin
-          match = defaults.find { |k, _v| k.any? { |w| attribute =~ /#{w}/ } }
-          match ? match[1] : {}
+        haml_tag(:div, class: 'input-group') do
+          haml_tag(:div, a.left, class: 'input-group-addon') if a.left
+          haml_tag(a.control_tag, control_opts, &b)
+          haml_tag(:div, a.right, class: 'input-group-addon') if a.right
         end
       end
 
-      def defaults
-        @defaults ||= {
-          %w(email)          => { left: icon('envelope') },
-          %w(phone)          => { left: icon('earphone') },
-          %w(repeat confirm) => { left: icon('repeat'), required: true },
-          %w(password)       => { left: icon('lock'), required: true },
-          %w(card)           => { left: icon('credit-card'), required: true }
-        }
-      end
-
-      def icon(icon)
-        "<span class='glyphicon glyphicon-#{icon}' aria-hidden='true'></span>"
+      def add_class(opts, klass)
+        opts.merge(class: ([opts[:class]].flatten << klass).compact)
       end
     end
   end
 end
-
-__END__
-
-/ Bootstrap Form Group
-.form-group
-  - if label
-    %label{label_opts}= label
-  - if required
-    %span.required *
-  - if left || right
-    .input-group
-      - if left
-        .input-group-addon= left
-      %input.form-control{input_opts}/
-      - if right
-        .input-group-addon= right
-  - else
-    %input.form-control{input_opts}/

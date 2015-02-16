@@ -1,9 +1,9 @@
-require 'end_view/bootstrap'
+require 'end_view/bootstrap/form_modal'
 
 module EndView
   module Bootstrap
     describe FormModal do
-      let(:rendered) { FormModal.render('myModal', form_builder) { 'content' } }
+      let(:rendered) { Bootstrap.form_modal('myModal', form_builder) { 'content' } }
 
       let(:form_builder) do
         double(form_opts: { class: 'my_form' },

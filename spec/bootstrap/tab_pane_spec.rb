@@ -1,9 +1,9 @@
-require 'end_view/bootstrap'
+require 'end_view/bootstrap/tab_pane'
 
 module EndView
   module Bootstrap
     describe TabPane do
-      subject { TabPane.new('my_pane', content: content, label: label, &block) }
+      subject { Bootstrap.tab_pane('my_pane', content: content, label: label, &block) }
       let(:content) { 'My Content' }
       let(:label) { nil }
       let(:block) { -> { 'Content Block' } }

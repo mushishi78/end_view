@@ -1,4 +1,5 @@
 require 'attire'
+require_relative 'attribute'
 
 module EndView
   module Form
@@ -14,7 +15,7 @@ module EndView
       end
 
       def auth_token_opts(opts = {})
-        { name: 'auth_token',
+        { name: 'authenticity_token',
           type: 'hidden',
           value: auth_token }.merge(opts)
       end
@@ -23,41 +24,35 @@ module EndView
         { name: '_method', type: 'hidden', value: form_method }.merge(opts)
       end
 
-      def label_opts(attribute, opts = {})
-        { for: attribute_id(attribute) }.merge(opts)
+      def label_opts(name)
+        { for: control_id(name) }
       end
 
-      def input_opts(attribute, opts = {})
-        { id: attribute_id(attribute),
-          name: attribute_name(attribute),
-          type: 'text' }.merge(find_default(attribute)).merge(opts)
+      def control_opts(name)
+        { id: control_id(name), name: control_name(name) }
+      end
+
+      def attribute_opts(name, opts = {})
+        { label_opts: label_opts(name),
+          control_opts: control_opts(name) }.merge(opts)
+      end
+
+      def attribute(name, opts = {})
+        Form.attribute(name, attribute_opts(name, opts))
+      end
+
+      def select_attribute(name, opts = {}, &b)
+        Form.select_attribute(name, attribute_opts(name, opts), &b)
       end
 
       private
 
-      def attribute_id(attribute)
-        attribute.to_s
+      def control_id(name)
+        name.to_s
       end
 
-      def attribute_name(attribute)
-        attribute.to_s
-      end
-
-      def input_defaults
-        @input_defaults ||= {
-          %w(email)    => { type: 'email' },
-          %w(phone)    => { type: 'tel' },
-          %w(password) => { type: 'password' },
-          %w(url)      => { type: 'url' },
-          %w(search)   => { type: 'search', placeholder: 'Search' },
-          %w(card)     => { pattern: '[0-9]{13,16}', autocomplete: 'off' },
-          %w(security_code csc cvd cvn cvv cvc ccv spc) => { size: 5, autocomplete: 'off' }
-        }
-      end
-
-      def find_default(attribute)
-        input_defaults.each { |k, v| return v if k.any? { |w| attribute =~ /#{w}/ } }
-        {}
+      def control_name(name)
+        name.to_s
       end
     end
   end

@@ -1,5 +1,5 @@
 require 'inflecto'
-require 'end_view/form/builder'
+require_relative 'builder'
 
 module EndView
   module Form
@@ -19,8 +19,8 @@ module EndView
         super.merge(class: form_class, id: form_id).merge(opts)
       end
 
-      def input_opts(attribute, opts = {})
-        super.merge(value: attribute_value(attribute)).merge(opts)
+      def control_opts(name)
+        super.merge(value: control_value(name))
       end
 
       private
@@ -53,16 +53,16 @@ module EndView
         @form_id ||= [action, model_name, model_id].compact.join('_')
       end
 
-      def attribute_id(attribute)
-        "#{model_name}_#{attribute}"
+      def control_id(attribute_name)
+        "#{model_name}_#{attribute_name}"
       end
 
-      def attribute_name(attribute)
-        "#{model_name}[#{attribute}]"
+      def control_name(attribute_name)
+        "#{model_name}[#{attribute_name}]"
       end
 
-      def attribute_value(attribute)
-        (record.respond_to?(attribute) && record.send(attribute)) || nil
+      def control_value(attribute_name)
+        (record.respond_to?(attribute_name) && record.send(attribute_name)) || nil
       end
     end
   end

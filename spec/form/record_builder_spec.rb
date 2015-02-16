@@ -1,4 +1,4 @@
-require 'end_view/form'
+require 'end_view/form/record_builder'
 
 module EndView
   module Form
@@ -15,12 +15,12 @@ module EndView
     end
 
     describe RecordBuilder do
-      subject { RecordBuilder.new(record, 'my_token') }
+      subject { Form.builder(record, 'my_token') }
 
       context 'with a new record' do
         let(:record) { double(class: 'MyProject::User', name: nil) }
         let(:form_opts) { { action: '/users/', class: 'new_user', id: 'new_user' } }
-        let(:input_opts) { { id: 'user_name', name: 'user[name]' } }
+        let(:control_opts) { { id: 'user_name', name: 'user[name]' } }
 
         describe '#form_opts' do
           it { expect(subject.form_opts).to include(form_opts) }
@@ -34,8 +34,8 @@ module EndView
           it { expect(subject.label_opts(:name)).to include(for: 'user_name') }
         end
 
-        describe '#input_opts' do
-          it { expect(subject.input_opts(:name)).to include(input_opts) }
+        describe '#control_opts' do
+          it { expect(subject.control_opts(:name)).to include(control_opts) }
         end
       end
 
@@ -55,8 +55,8 @@ module EndView
           it { expect(subject.label_opts(:name)).to include(for: 'user_name') }
         end
 
-        describe '#input_opts' do
-          it { expect(subject.input_opts(:name)).to include(value: 'Harry') }
+        describe '#control_opts' do
+          it { expect(subject.control_opts(:name)).to include(value: 'Harry') }
         end
       end
     end

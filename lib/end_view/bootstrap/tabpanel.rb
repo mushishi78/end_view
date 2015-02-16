@@ -1,6 +1,6 @@
 require 'end_view'
 require 'attire'
-require 'end_view/bootstrap/tab_pane'
+require_relative 'tab_pane'
 
 module EndView
   module Bootstrap
@@ -18,7 +18,7 @@ module EndView
       attr_init id: nil, panes: [], fade: false, active_pane: 0
       public :panes
 
-      def add_pane(*args, &b)
+      def pane(*args, &b)
         panes << TabPane.new(*args, &b)
       end
 

@@ -1,9 +1,9 @@
-require 'end_view/rails'
+require 'end_view/rails/layout'
 
 module EndView
   module Rails
     describe Layout do
-      let(:rendered) { Layout.new(vc, title: 'My Title').render { 'content' } }
+      let(:rendered) { Rails.layout(vc, title: 'My Title') { 'content' } }
       let(:vc) { double }
 
       before do

@@ -1,4 +1,4 @@
-require 'end_view/bootstrap/modal'
+require_relative 'modal'
 
 module EndView
   module Bootstrap
@@ -16,7 +16,7 @@ module EndView
       attr_init :id, :form_builder, :'opts = {}'
 
       def render(*args, &b)
-        super(*args) { Modal.render(id, opts_with_buttons, &b) }
+        super(*args) { Bootstrap.modal(id, opts_with_buttons, &b) }
       end
 
       private

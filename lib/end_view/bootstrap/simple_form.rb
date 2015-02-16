@@ -1,38 +1,23 @@
-require 'end_view'
-require 'attire'
-require 'end_view/bootstrap/form_group'
-require 'end_view/form/record_builder'
+require 'end_view/form/simple_form'
+require_relative 'form_group'
+require_relative 'record_builder'
 
 module EndView
   module Bootstrap
-    def self.simple_form(*args)
-      SimpleForm.render(*args)
+    def self.simple_form(*args, &b)
+      SimpleForm.render(*args, &b)
     end
 
-    class SimpleForm
-      include EndView
-      attr_method :render, :url_or_record, :auth_token, :attributes, :'opts = {}'
-
+    class SimpleForm < Form::SimpleForm
       private
 
-      def form_builder
-        @form_builder ||= Form.builder(url_or_record, auth_token, opts)
-      end
-      alias_method :f, :form_builder
-
       def form_group(attribute)
-        FormGroup.render(form_builder, attribute)
+        Bootstrap.form_group(attribute)
+      end
+
+      def form_builder
+        @form_builder ||= Bootstrap.builder(url_or_record, auth_token, opts)
       end
     end
   end
 end
-
-__END__
-
-/ Bootstrap Simple Form
-%form{f.form_opts}
-  %input{f.auth_token_opts}
-  %input{f.form_method_opts}
-  - attributes.each do |attribute|
-    = form_group(attribute)
-  %button{type: 'submit'} Okay

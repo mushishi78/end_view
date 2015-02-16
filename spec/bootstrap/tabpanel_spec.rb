@@ -1,28 +1,19 @@
-require 'end_view/bootstrap'
+require 'end_view/bootstrap/tabpanel'
 
 module EndView
   module Bootstrap
     describe Tabpanel do
-      subject { Tabpanel.new(opts) }
-      let(:opts) { nil }
-
-      describe '#add_pane' do
-        it 'creates a new pane and appends it to panes' do
-          subject.add_pane('home') { 'Home content' }
-          expect(subject.panes.count).to eq(1)
-          expect(subject.panes.first.id).to eq('home')
+      let(:rendered) do
+        Bootstrap.tabpanel(opts) do
+          pane('home') { 'Home content' }
+          pane('profile') { 'Profile content' }
+          pane('messages') { 'Messages content' }
+          pane('settings') { 'Settings content' }
         end
       end
 
-      describe '#render' do
-        let(:rendered) do
-          subject.render do
-            add_pane('home') { 'Home content' }
-            add_pane('profile') { 'Profile content' }
-            add_pane('messages') { 'Messages content' }
-            add_pane('settings') { 'Settings content' }
-          end
-        end
+      context 'with no opts' do
+        let(:opts) { nil }
 
         def link_opts(id)
           { href: "##{id}", 'aria-controls' => id }
@@ -46,17 +37,17 @@ module EndView
             with_tag '.tab-pane#settings', text: 'Settings content'
           end
         end
+      end
 
-        context 'with opts' do
-          let(:opts) { { id: 'my_panel', fade: true, active_pane: 2 } }
+      context 'with opts' do
+        let(:opts) { { id: 'my_panel', fade: true, active_pane: 2 } }
 
-          it 'renders' do
-            expect(rendered).to have_tag('div#my_panel') do
-              with_tag '.tab-pane#home.fade'
-              with_tag '.tab-pane#profile.fade'
-              with_tag '.tab-pane#messages.fade.in.active'
-              with_tag '.tab-pane#settings.fade'
-            end
+        it 'renders' do
+          expect(rendered).to have_tag('div#my_panel') do
+            with_tag '.tab-pane#home.fade'
+            with_tag '.tab-pane#profile.fade'
+            with_tag '.tab-pane#messages.fade.in.active'
+            with_tag '.tab-pane#settings.fade'
           end
         end
       end

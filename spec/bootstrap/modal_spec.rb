@@ -1,9 +1,9 @@
-require 'end_view/bootstrap'
+require 'end_view/bootstrap/modal'
 
 module EndView
   module Bootstrap
     describe Modal do
-      let(:rendered) { Modal.render('myModal', opts) { 'content' } }
+      let(:rendered) { Bootstrap.modal('myModal', opts) { 'content' } }
 
       context 'with opts' do
         let(:opts) do

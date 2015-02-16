@@ -42,7 +42,8 @@ module EndView
     def compile_template(opts = {})
       file = opts[:file] || caller_file(opts[:start] || 3)
       template_engine = opts[:template_engine] || EndView.default_engine
-      @template = template_engine.new(file) { data(file) }
+      line, data = read_template(file)
+      @template = template_engine.new(file, line) { data }
     end
 
     def layout(layout)
@@ -59,8 +60,10 @@ module EndView
       caller(start).first.split(/:\d*:in/).first
     end
 
-    def data(file)
-      IO.read(file).gsub("\r\n", "\n").split(/^__END__$/).last
+    def read_template(file)
+      lines = File.readlines(file)
+      line = (lines.find_index { |l| l =~ /^__END__$/ } || - 1) + 1
+      [line, lines[line..-1].join]
     end
   end
 
