@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'end_view/bootstrap/form_group'
 
 module EndView
