@@ -18,6 +18,10 @@ module EndView
       def form_builder
         @form_builder ||= Bootstrap.builder(url_or_record, auth_token, opts)
       end
+
+      def button_opts
+        opts[:button_opts] || { type: 'submit', class: 'btn btn-primary' }
+      end
     end
   end
 end
