@@ -1,6 +1,0 @@
-require 'end_view/form/defaults'
-require 'end_view/form/attribute'
-require 'end_view/form/builder'
-require 'end_view/form/record_builder'
-require 'end_view/form/form_group'
-require 'end_view/form/simple_form'
